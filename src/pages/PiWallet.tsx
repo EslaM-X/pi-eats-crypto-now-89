@@ -1,319 +1,249 @@
 
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { useNavigate } from 'react-router-dom';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowRightLeft, WalletIcon, History, SendHorizontal, PlusCircle } from 'lucide-react';
-import { Container } from '@/components/ui/container';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { usePiAuth } from '@/contexts/PiAuthContext';
+import { usePiPrice } from '@/contexts/PiPriceContext';
+import { useWallet } from '@/contexts/WalletContext';
+import WalletCard from '@/components/WalletCard';
+import TransactionHistory from '@/components/TransactionHistory';
 import PiNetworkLogo from '@/components/PiNetworkLogo';
 import { PiPriceIndicator } from '@/components/PiPriceIndicator';
-import { usePiPrice } from '@/contexts/PiPriceContext';
-import { toast } from 'sonner';
-import Header from '@/components/Header';
-import TransactionHistory from '@/components/TransactionHistory';
-import { useWallet } from '@/contexts/WalletContext';
+import { ArrowRightLeft, ExternalLink, History, PlusCircle, RefreshCw, Send } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 const PiWallet = () => {
-  const { t, language } = useLanguage();
+  const navigate = useNavigate();
   const { user, login } = usePiAuth();
-  const { convertPiToUsd } = usePiPrice();
-  const { piBalance, transactions, sendPi, receivePi } = useWallet();
-  const [sendAmount, setSendAmount] = useState('');
-  const [sendAddress, setSendAddress] = useState('');
-  const [sendMemo, setSendMemo] = useState('');
-  const [isProcessing, setIsProcessing] = useState(false);
+  const { t, language } = useLanguage();
+  const { priceData, convertPiToUsd, convertPiToEgp } = usePiPrice();
+  const { piTransactions, refreshPiWallet } = useWallet();
+  const [activeTab, setActiveTab] = useState('overview');
+  const [isConnecting, setIsConnecting] = useState(false);
   
-  const dir = language === 'ar' ? 'rtl' : 'ltr';
-
-  const handleSendPi = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!user) {
-      toast.error(t('wallet.loginRequired'));
-      return;
-    }
-    
-    if (!sendAmount || !sendAddress) {
-      toast.error(t('wallet.fillAllFields'));
-      return;
-    }
-    
-    const amount = parseFloat(sendAmount);
-    if (isNaN(amount) || amount <= 0) {
-      toast.error(t('wallet.invalidAmount'));
-      return;
-    }
-    
-    setIsProcessing(true);
-    
+  // Mock Pi balance for demo - in real app would come from Pi SDK
+  const piBalance = user ? 24.65 : 0;
+  
+  const handleConnect = async () => {
+    setIsConnecting(true);
     try {
-      const success = await sendPi(amount, sendAddress, sendMemo || t('wallet.transfer'));
-      
-      if (success) {
-        toast.success(t('wallet.transferSuccess'));
-        setSendAmount('');
-        setSendAddress('');
-        setSendMemo('');
-      } else {
-        toast.error(t('wallet.transferFailed'));
+      const result = await login();
+      if (result) {
+        refreshPiWallet();
       }
     } catch (error) {
-      console.error('Transfer error:', error);
-      toast.error(t('wallet.transferError'));
+      console.error('Failed to connect Pi wallet:', error);
     } finally {
-      setIsProcessing(false);
+      setIsConnecting(false);
     }
+  };
+  
+  const handleOpenPiBrowser = () => {
+    // In a real app, this would use Pi SDK deeplink to open Pi Browser
+    window.open('https://minepi.com', '_blank');
   };
 
   return (
-    <>
+    <div className="container mx-auto px-4 py-6 max-w-5xl">
       <Helmet>
-        <title>{language === 'ar' ? 'محفظة Pi' : 'Pi Wallet'}</title>
+        <title>{t('piWallet.title')} | PiEat-Me</title>
       </Helmet>
-
-      <Header />
       
-      <Container className="pt-6 pb-24" dir={dir}>
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-3xl font-bold">
-            <span className="bg-gradient-to-r from-pi to-orange bg-clip-text text-transparent">
-              {t('wallet.piWallet')}
-            </span>
-          </h1>
-          <PiPriceIndicator showDetails={true} />
-        </div>
-        
-        {!user ? (
-          <Card className="mb-8">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <PiNetworkLogo size="sm" />
-                {t('wallet.connectWallet')}
-              </CardTitle>
-              <CardDescription>
-                {t('wallet.connectToAccess')}
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="flex justify-center">
-              <Button onClick={login} className="button-gradient">
-                {t('auth.connectWithPi')}
-              </Button>
-            </CardContent>
-          </Card>
-        ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-2 space-y-6">
-              <Card className="glass-card">
-                <CardHeader className="p-6">
-                  <CardTitle className="flex items-center justify-between">
-                    <span className="text-xl">
-                      {t('wallet.piNetwork')}
-                    </span>
-                    <WalletIcon className="h-6 w-6 text-pi" />
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="p-6 pt-0">
-                  <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between mb-6">
-                    <div>
-                      <div className="text-sm text-muted-foreground mb-1">{t('wallet.balance')}</div>
-                      <div className="text-4xl font-bold flex items-center">
-                        <span className="mr-1 font-extrabold text-5xl">
-                          <PiNetworkLogo size="md" />
-                        </span>
-                        <span>{piBalance.toFixed(2)}</span>
-                      </div>
-                      <div className="flex flex-col mt-1">
-                        <div className="text-sm text-muted-foreground">
-                          ≈ ${convertPiToUsd(piBalance).toFixed(2)}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+      <header className="mb-6">
+        <h1 className="text-3xl font-bold">{t('piWallet.title')}</h1>
+        <p className="text-muted-foreground mt-1">{t('piWallet.subtitle')}</p>
+      </header>
+      
+      <div className="mb-8">
+        <WalletCard
+          title={t('piWallet.piNetwork')}
+          abbreviation="Pi"
+          icon={<PiNetworkLogo />}
+          balance={piBalance}
+          symbol="π"
+          isUser={!!user}
+          isPi={true}
+          usdValue={convertPiToUsd(piBalance)}
+          egpValue={convertPiToEgp(piBalance)}
+          onConnect={handleConnect}
+          onExternal={handleOpenPiBrowser}
+          customActions={
+            user ? (
+              <div className="grid grid-cols-3 gap-3">
+                <Button 
+                  variant="outline" 
+                  className="flex items-center justify-center h-auto py-2"
+                  onClick={() => navigate('/pi-payment')}
+                >
+                  <Send className={`h-4 w-4 ${language === 'ar' ? 'ml-2' : 'mr-2'}`} />
+                  {t('wallet.send')}
+                </Button>
+                <Button 
+                  variant="outline" 
+                  className="flex items-center justify-center h-auto py-2"
+                  onClick={() => refreshPiWallet()}
+                >
+                  <RefreshCw className={`h-4 w-4 ${language === 'ar' ? 'ml-2' : 'mr-2'}`} />
+                  {t('wallet.refresh')}
+                </Button>
+                <Button 
+                  variant="default" 
+                  className="button-gradient flex items-center justify-center h-auto py-2"
+                >
+                  <History className={`h-4 w-4 ${language === 'ar' ? 'ml-2' : 'mr-2'}`} />
+                  {t('wallet.history')}
+                </Button>
+              </div>
+            ) : null
+          }
+        />
+      </div>
+      
+      {user ? (
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
+          <TabsList className="grid grid-cols-2 md:grid-cols-4">
+            <TabsTrigger value="overview">{t('piWallet.overview')}</TabsTrigger>
+            <TabsTrigger value="transactions">{t('piWallet.transactions')}</TabsTrigger>
+            <TabsTrigger value="apps">{t('piWallet.connectedApps')}</TabsTrigger>
+            <TabsTrigger value="settings">{t('piWallet.settings')}</TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="overview">
+            <Card>
+              <CardHeader>
+                <CardTitle>{t('piWallet.overview')}</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <Card>
+                    <CardHeader className="py-3 px-4">
+                      <CardTitle className="text-sm">{t('piWallet.marketPrice')}</CardTitle>
+                    </CardHeader>
+                    <CardContent className="py-2 px-4">
+                      <PiPriceIndicator showDetails={true} />
+                    </CardContent>
+                  </Card>
                   
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
-                    <Button variant="outline" className="flex items-center justify-center text-xs md:text-sm py-1 h-auto">
-                      <WalletIcon className={`${language === 'ar' ? 'ml-1' : 'mr-1'} h-4 w-4`} />
-                      <span>{t('wallet.connect')}</span>
-                    </Button>
-                    <Button variant="outline" className="flex items-center justify-center text-xs md:text-sm py-1 h-auto">
-                      <SendHorizontal className={`${language === 'ar' ? 'ml-1' : 'mr-1'} h-4 w-4`} />
-                      <span>{t('wallet.send')}</span>
-                    </Button>
-                    <Button variant="outline" className="flex items-center justify-center text-xs md:text-sm py-1 h-auto">
-                      <History className={`${language === 'ar' ? 'ml-1' : 'mr-1'} h-4 w-4`} />
-                      <span>{t('wallet.transactions')}</span>
-                    </Button>
-                    <Button variant="default" className="button-gradient flex items-center justify-center text-xs md:text-sm py-1 h-auto">
-                      <PlusCircle className={`${language === 'ar' ? 'ml-1' : 'mr-1'} h-4 w-4`} />
-                      <span>{t('wallet.topUp')}</span>
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-              
-              <Tabs defaultValue="transactions" className="w-full">
-                <TabsList className="grid grid-cols-3 mb-4">
-                  <TabsTrigger value="transactions">{t('wallet.transactions')}</TabsTrigger>
-                  <TabsTrigger value="send">{t('wallet.send')}</TabsTrigger>
-                  <TabsTrigger value="receive">{t('wallet.receive')}</TabsTrigger>
-                </TabsList>
-                
-                <TabsContent value="transactions" className="space-y-4">
                   <Card>
-                    <CardHeader>
-                      <CardTitle>{t('wallet.recentTransactions')}</CardTitle>
+                    <CardHeader className="py-3 px-4">
+                      <CardTitle className="text-sm">{t('piWallet.recentActivity')}</CardTitle>
                     </CardHeader>
-                    <CardContent>
-                      <TransactionHistory transactions={transactions} />
+                    <CardContent className="py-2 px-4 font-mono">
+                      {piTransactions.slice(0, 3).map((tx, i) => (
+                        <div key={i} className="flex justify-between text-xs py-1">
+                          <span className="truncate">{tx.description}</span>
+                          <span className={tx.type === 'receive' ? 'text-green-500' : 'text-orange'}>
+                            {tx.type === 'receive' ? '+' : '-'} π{tx.amount.toFixed(2)}
+                          </span>
+                        </div>
+                      ))}
+                      {piTransactions.length === 0 && (
+                        <p className="text-sm text-muted-foreground">{t('piWallet.noTransactions')}</p>
+                      )}
                     </CardContent>
                   </Card>
-                </TabsContent>
-                
-                <TabsContent value="send" className="space-y-4">
+                  
                   <Card>
-                    <CardHeader>
-                      <CardTitle>{t('wallet.sendPi')}</CardTitle>
-                      <CardDescription>
-                        {t('wallet.sendPiDescription')}
-                      </CardDescription>
+                    <CardHeader className="py-3 px-4">
+                      <CardTitle className="text-sm">{t('piWallet.actions')}</CardTitle>
                     </CardHeader>
-                    <CardContent>
-                      <form onSubmit={handleSendPi} className="space-y-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="address">{t('wallet.recipientAddress')}</Label>
-                          <Input
-                            id="address"
-                            value={sendAddress}
-                            onChange={(e) => setSendAddress(e.target.value)}
-                            placeholder={t('wallet.enterAddress')}
-                            required
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="amount">{t('wallet.amount')}</Label>
-                          <div className="relative">
-                            <Input
-                              id="amount"
-                              value={sendAmount}
-                              onChange={(e) => setSendAmount(e.target.value)}
-                              type="number"
-                              min="0.01"
-                              step="0.01"
-                              placeholder="0.00"
-                              required
-                            />
-                            <div className="absolute right-3 top-2 text-muted-foreground">Pi</div>
-                          </div>
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="memo">{t('wallet.memo')} ({t('wallet.optional')})</Label>
-                          <Input
-                            id="memo"
-                            value={sendMemo}
-                            onChange={(e) => setSendMemo(e.target.value)}
-                            placeholder={t('wallet.enterMemo')}
-                          />
-                        </div>
-                        <Button 
-                          type="submit" 
-                          className="w-full button-gradient" 
-                          disabled={isProcessing}
-                        >
-                          {isProcessing ? t('loading') : t('wallet.send')}
+                    <CardContent className="py-4 px-4">
+                      <div className="grid grid-cols-2 gap-2">
+                        <Button variant="outline" size="sm" className="text-xs">
+                          <ArrowRightLeft className="h-3 w-3 mr-1" />
+                          {t('piWallet.swap')}
                         </Button>
-                      </form>
-                    </CardContent>
-                  </Card>
-                </TabsContent>
-                
-                <TabsContent value="receive" className="space-y-4">
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>{t('wallet.receivePi')}</CardTitle>
-                      <CardDescription>
-                        {t('wallet.receivePiDescription')}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent className="flex flex-col items-center space-y-4">
-                      <div className="w-64 h-64 bg-white flex items-center justify-center rounded-lg">
-                        <div className="text-center text-sm text-muted-foreground">
-                          {t('wallet.qrCodePlaceholder')}
-                        </div>
-                      </div>
-                      
-                      <div className="w-full max-w-md p-4 border rounded-lg bg-muted/20">
-                        <p className="text-sm mb-2 font-medium">{t('wallet.yourAddress')}:</p>
-                        <div className="flex items-center">
-                          <code className="bg-muted p-2 rounded text-xs flex-grow overflow-hidden text-ellipsis">
-                            {user.walletAddress || 'GDNZ...R4YP'}
-                          </code>
-                          <Button variant="ghost" size="icon" className="ml-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c0-1.1.9-2 2-2h2"/><path d="M4 12c0-1.1.9-2 2-2h2"/><path d="M4 8c0-1.1.9-2 2-2h2"/></svg>
-                          </Button>
-                        </div>
+                        <Button variant="outline" size="sm" className="text-xs">
+                          <PlusCircle className="h-3 w-3 mr-1" />
+                          {t('piWallet.buy')}
+                        </Button>
+                        <Button variant="outline" size="sm" className="text-xs">
+                          <Send className="h-3 w-3 mr-1" />
+                          {t('piWallet.transfer')}
+                        </Button>
+                        <Button variant="outline" size="sm" className="text-xs">
+                          <ExternalLink className="h-3 w-3 mr-1" />
+                          {t('piWallet.explore')}
+                        </Button>
                       </div>
                     </CardContent>
                   </Card>
-                </TabsContent>
-              </Tabs>
-            </div>
-            
-            <div className="space-y-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>{t('wallet.piInfo')}</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">{t('wallet.currentPrice')}</span>
-                    <span className="font-medium"><PiPriceIndicator /></span>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+          
+          <TabsContent value="transactions">
+            <Card>
+              <CardHeader>
+                <CardTitle>{t('piWallet.transactions')}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <TransactionHistory transactions={piTransactions} />
+              </CardContent>
+            </Card>
+          </TabsContent>
+          
+          <TabsContent value="apps">
+            <Card>
+              <CardHeader>
+                <CardTitle>{t('piWallet.connectedApps')}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="py-4 px-2">
+                  <div className="flex items-center space-x-4 p-3 bg-muted/50 rounded-lg">
+                    <div className="h-12 w-12 rounded-full bg-gradient-to-br from-pi to-purple-700 flex items-center justify-center text-white font-bold text-lg">
+                      πE
+                    </div>
+                    <div className="flex-grow">
+                      <h3 className="font-medium">PiEat-Me</h3>
+                      <p className="text-sm text-muted-foreground">Connected on {new Date().toLocaleDateString()}</p>
+                    </div>
+                    <Button variant="outline" size="sm">
+                      {t('piWallet.disconnect')}
+                    </Button>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">{t('wallet.balance')}</span>
-                    <span className="font-medium">{piBalance.toFixed(2)} Pi</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">{t('wallet.value')}</span>
-                    <span className="font-medium">${convertPiToUsd(piBalance).toFixed(2)}</span>
-                  </div>
-                </CardContent>
-                <CardFooter>
-                  <Button variant="outline" className="w-full">
-                    <ArrowRightLeft className="mr-2 h-4 w-4" />
-                    {t('wallet.viewOnExplorer')}
-                  </Button>
-                </CardFooter>
-              </Card>
-              
-              <Card className="bg-gradient-to-br from-pi/10 to-orange/10">
-                <CardHeader>
-                  <CardTitle className="text-lg">{t('wallet.earnMore')}</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <Button className="w-full justify-between" variant="outline">
-                    {t('wallet.miningRewards')}
-                    <span className="text-pi">+</span>
-                  </Button>
-                  <Button className="w-full justify-between" variant="outline">
-                    {t('wallet.referFriends')}
-                    <span className="text-pi">+</span>
-                  </Button>
-                  <Button className="w-full justify-between button-gradient">
-                    {t('wallet.joinProgram')}
-                    <span>→</span>
-                  </Button>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        )}
-      </Container>
-    </>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+          
+          <TabsContent value="settings">
+            <Card>
+              <CardHeader>
+                <CardTitle>{t('piWallet.settings')}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground">
+                  {t('piWallet.settingsDescription')}
+                </p>
+                <Button className="mt-4" variant="outline">{t('piWallet.openPiBrowser')}</Button>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
+      ) : (
+        <Card>
+          <CardContent className="p-10 text-center">
+            <div className="text-5xl mb-4">π</div>
+            <h2 className="text-xl font-bold mb-2">{t('piWallet.connectWallet')}</h2>
+            <p className="text-muted-foreground mb-6 max-w-md mx-auto">
+              {t('piWallet.connectDescription')}
+            </p>
+            <Button 
+              onClick={handleConnect}
+              disabled={isConnecting}
+              className="button-gradient"
+            >
+              {isConnecting ? t('common.connecting') : t('piWallet.connectButton')}
+            </Button>
+          </CardContent>
+        </Card>
+      )}
+    </div>
   );
 };
 

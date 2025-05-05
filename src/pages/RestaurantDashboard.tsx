@@ -1,429 +1,412 @@
 
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import Header from '@/components/Header';
-import { Container } from '@/components/ui/container';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Separator } from '@/components/ui/separator';
+import { 
+  ChefHat, 
+  Clock, 
+  Users, 
+  DollarSign, 
+  ShoppingBag, 
+  Settings, 
+  PlusCircle, 
+  Package,
+  FileEdit,
+  Trash2,
+  Star,
+  MessageSquare
+} from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { useTheme } from '@/contexts/ThemeContext';
-import { usePiAuth } from '@/contexts/PiAuthContext';
-import { PiPriceIndicator } from '@/components/PiPriceIndicator';
 import { toast } from 'sonner';
 
-// Mock data
+// Mock data for restaurant dashboard
 const mockOrders = [
-  { id: 'ORD-001', customerName: 'محمد أحمد', total: 15.5, status: 'pending', items: 3, time: '10:30 AM' },
-  { id: 'ORD-002', customerName: 'سارة محمود', total: 22.75, status: 'completed', items: 5, time: '11:15 AM' },
-  { id: 'ORD-003', customerName: 'أحمد علي', total: 18.25, status: 'processing', items: 4, time: '12:05 PM' },
-  { id: 'ORD-004', customerName: 'فاطمة حسن', total: 9.75, status: 'delivered', items: 2, time: '01:45 PM' },
+  { id: 'ORD-1234', customer: 'Ahmed Mahmoud', items: 3, total: 45.20, status: 'preparing', time: '10:30 AM' },
+  { id: 'ORD-1235', customer: 'Sara Ali', items: 1, total: 18.50, status: 'ready', time: '10:45 AM' },
+  { id: 'ORD-1236', customer: 'Mohamed Ahmed', items: 4, total: 62.75, status: 'delivered', time: '11:15 AM' },
+  { id: 'ORD-1237', customer: 'Laila Kamal', items: 2, total: 37.90, status: 'new', time: '11:30 AM' },
 ];
 
 const mockMenuItems = [
-  { id: '1', name: 'برجر دجاج', category: 'برجر', price: 8.5, available: true },
-  { id: '2', name: 'بيتزا مارجريتا', category: 'بيتزا', price: 12.0, available: true },
-  { id: '3', name: 'ساندويش فلافل', category: 'ساندويش', price: 5.5, available: false },
-  { id: '4', name: 'سلطة سيزر', category: 'سلطة', price: 7.0, available: true },
+  { id: 1, name: 'Shawarma Sandwich', price: 15.99, category: 'Main Course', available: true, image: 'https://source.unsplash.com/random/100x100?shawarma' },
+  { id: 2, name: 'Cheese Pizza', price: 25.50, category: 'Pizza', available: true, image: 'https://source.unsplash.com/random/100x100?pizza' },
+  { id: 3, name: 'Chicken Wings', price: 18.75, category: 'Appetizer', available: false, image: 'https://source.unsplash.com/random/100x100?wings' },
+  { id: 4, name: 'Grilled Vegetables', price: 12.25, category: 'Side Dish', available: true, image: 'https://source.unsplash.com/random/100x100?vegetables' },
 ];
 
-const mockStats = {
-  totalOrders: 156,
-  totalSales: 2750.5,
-  averageOrderValue: 17.63,
-  pendingOrders: 5
-};
+const mockReviews = [
+  { id: 1, customer: 'Ahmed', rating: 5, comment: 'Excellent food and service!', date: '2023-05-01' },
+  { id: 2, customer: 'Sara', rating: 4, comment: 'Great food but delivery was a bit late.', date: '2023-04-28' },
+  { id: 3, customer: 'Mohamed', rating: 5, comment: 'Best shawarma in town!', date: '2023-04-25' },
+];
 
 const RestaurantDashboard = () => {
-  const { t, language } = useLanguage();
-  const { theme } = useTheme();
-  const { user } = usePiAuth();
-  const [orders] = useState(mockOrders);
-  const [menuItems] = useState(mockMenuItems);
-  const [stats] = useState(mockStats);
-  const [newItemName, setNewItemName] = useState('');
-  const [newItemPrice, setNewItemPrice] = useState('');
-  const [newItemCategory, setNewItemCategory] = useState('');
-
-  const dir = language === 'ar' ? 'rtl' : 'ltr';
-
-  const handleAddMenuItem = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!newItemName || !newItemPrice || !newItemCategory) {
-      toast.error(t('dashboard.fillAllFields'));
-      return;
-    }
-    
-    toast.success(t('dashboard.itemAdded'));
-    setNewItemName('');
-    setNewItemPrice('');
-    setNewItemCategory('');
+  const { t } = useLanguage();
+  const [activeTab, setActiveTab] = useState('orders');
+  
+  const handleStatusChange = (orderId: string, newStatus: string) => {
+    toast.success(`Order ${orderId} status updated to ${newStatus}`);
   };
-
+  
+  const handleToggleAvailability = (itemId: number) => {
+    toast.success(`Menu item availability toggled`);
+  };
+  
+  const handleAddMenuItem = () => {
+    toast.success('Add menu item feature coming soon');
+  };
+  
   return (
-    <>
+    <div className="container mx-auto px-4 py-6 max-w-6xl">
       <Helmet>
-        <title>{language === 'ar' ? 'لوحة تحكم المطعم | بِي إيت' : 'Restaurant Dashboard | PiEat-Me'}</title>
+        <title>{t('restaurantDashboard.title')} | PiEat-Me</title>
       </Helmet>
-
-      <Header />
       
-      <Container className="pt-6 pb-24" dir={dir}>
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-3xl font-bold">
-            <span className="bg-gradient-to-r from-pi to-orange bg-clip-text text-transparent">
-              {t('dashboard.title')}
-            </span>
-          </h1>
-          <div className="flex items-center gap-4">
-            <PiPriceIndicator />
-            {!user ? (
-              <Button className="button-gradient">
-                {t('auth.connectWithPi')}
-              </Button>
-            ) : (
-              <div className="text-sm bg-muted/30 px-3 py-1 rounded-full">
-                {user.username}
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Dashboard Overview */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-          <Card>
-            <CardHeader className="pb-2">
-              <CardDescription>{t('dashboard.totalOrders')}</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold">{stats.totalOrders}</div>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardHeader className="pb-2">
-              <CardDescription>{t('dashboard.totalSales')}</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold">π {stats.totalSales.toFixed(2)}</div>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardHeader className="pb-2">
-              <CardDescription>{t('dashboard.averageOrderValue')}</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold">π {stats.averageOrderValue.toFixed(2)}</div>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardHeader className="pb-2">
-              <CardDescription>{t('dashboard.pendingOrders')}</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold">{stats.pendingOrders}</div>
-            </CardContent>
-          </Card>
-        </div>
+      <header className="mb-6">
+        <h1 className="text-3xl font-bold">{t('restaurantDashboard.title')}</h1>
+        <p className="text-muted-foreground mt-1">{t('restaurantDashboard.subtitle')}</p>
+      </header>
+      
+      {/* Overview Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <Card>
+          <CardContent className="flex py-4">
+            <div className="rounded-full bg-orange/20 p-3 mr-4">
+              <ShoppingBag className="h-6 w-6 text-orange" />
+            </div>
+            <div>
+              <p className="text-sm font-medium text-muted-foreground">Today's Orders</p>
+              <h3 className="text-2xl font-bold">12</h3>
+            </div>
+          </CardContent>
+        </Card>
         
-        {/* Main Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Left Column (2/3) */}
-          <div className="lg:col-span-2 space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>{t('dashboard.recentOrders')}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="overflow-x-auto">
-                  <table className="w-full">
-                    <thead>
-                      <tr className="text-left text-muted-foreground text-sm">
-                        <th className="pb-2">{t('dashboard.orderId')}</th>
-                        <th className="pb-2">{t('dashboard.customer')}</th>
-                        <th className="pb-2">{t('dashboard.items')}</th>
-                        <th className="pb-2">{t('dashboard.total')}</th>
-                        <th className="pb-2">{t('dashboard.status')}</th>
-                        <th className="pb-2">{t('dashboard.actions')}</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {orders.map((order) => (
-                        <tr key={order.id} className="border-b border-border text-sm">
-                          <td className="py-3">{order.id}</td>
-                          <td className="py-3">{order.customerName}</td>
-                          <td className="py-3">{order.items}</td>
-                          <td className="py-3">π {order.total.toFixed(2)}</td>
-                          <td className="py-3">
-                            <span className={`px-2 py-1 rounded-full text-xs ${
-                              order.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-                              order.status === 'processing' ? 'bg-blue-100 text-blue-800' :
-                              order.status === 'completed' ? 'bg-green-100 text-green-800' :
-                              'bg-purple-100 text-purple-800'
-                            }`}>
-                              {order.status}
-                            </span>
-                          </td>
-                          <td className="py-3">
-                            <Button variant="ghost" size="sm">
-                              {t('dashboard.view')}
+        <Card>
+          <CardContent className="flex py-4">
+            <div className="rounded-full bg-green-500/20 p-3 mr-4">
+              <DollarSign className="h-6 w-6 text-green-500" />
+            </div>
+            <div>
+              <p className="text-sm font-medium text-muted-foreground">Today's Revenue</p>
+              <h3 className="text-2xl font-bold">π 245.50</h3>
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card>
+          <CardContent className="flex py-4">
+            <div className="rounded-full bg-blue-500/20 p-3 mr-4">
+              <Users className="h-6 w-6 text-blue-500" />
+            </div>
+            <div>
+              <p className="text-sm font-medium text-muted-foreground">Total Customers</p>
+              <h3 className="text-2xl font-bold">87</h3>
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card>
+          <CardContent className="flex py-4">
+            <div className="rounded-full bg-purple-500/20 p-3 mr-4">
+              <Star className="h-6 w-6 text-purple-500" />
+            </div>
+            <div>
+              <p className="text-sm font-medium text-muted-foreground">Average Rating</p>
+              <h3 className="text-2xl font-bold">4.7</h3>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+      
+      {/* Dashboard Tabs */}
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
+        <TabsList className="grid grid-cols-2 md:grid-cols-5 overflow-auto">
+          <TabsTrigger value="orders">Orders</TabsTrigger>
+          <TabsTrigger value="menu">Menu Items</TabsTrigger>
+          <TabsTrigger value="reviews">Reviews</TabsTrigger>
+          <TabsTrigger value="messages">Messages</TabsTrigger>
+          <TabsTrigger value="settings">Settings</TabsTrigger>
+        </TabsList>
+        
+        {/* Orders Tab */}
+        <TabsContent value="orders">
+          <Card>
+            <CardHeader>
+              <CardTitle>Recent Orders</CardTitle>
+              <CardDescription>Manage your restaurant orders</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex justify-between mb-4">
+                <div className="flex space-x-2">
+                  <Badge variant="outline" className="bg-muted">All</Badge>
+                  <Badge variant="outline" className="bg-orange/20 text-orange">New</Badge>
+                  <Badge variant="outline" className="bg-blue-500/20 text-blue-500">Preparing</Badge>
+                  <Badge variant="outline" className="bg-green-500/20 text-green-500">Ready</Badge>
+                  <Badge variant="outline" className="bg-purple-500/20 text-purple-500">Delivered</Badge>
+                </div>
+                <Input className="max-w-xs" placeholder="Search orders..." />
+              </div>
+              
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="text-sm text-muted-foreground border-b">
+                      <th className="text-left py-3 px-4">Order ID</th>
+                      <th className="text-left py-3 px-4">Customer</th>
+                      <th className="text-left py-3 px-4">Items</th>
+                      <th className="text-left py-3 px-4">Total</th>
+                      <th className="text-left py-3 px-4">Time</th>
+                      <th className="text-left py-3 px-4">Status</th>
+                      <th className="text-left py-3 px-4">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {mockOrders.map((order) => (
+                      <tr key={order.id} className="border-b last:border-0">
+                        <td className="py-3 px-4">{order.id}</td>
+                        <td className="py-3 px-4">{order.customer}</td>
+                        <td className="py-3 px-4">{order.items} items</td>
+                        <td className="py-3 px-4">π {order.total.toFixed(2)}</td>
+                        <td className="py-3 px-4">{order.time}</td>
+                        <td className="py-3 px-4">
+                          <Badge className={
+                            order.status === 'new' ? 'bg-orange/20 text-orange' : 
+                            order.status === 'preparing' ? 'bg-blue-500/20 text-blue-500' :
+                            order.status === 'ready' ? 'bg-green-500/20 text-green-500' :
+                            'bg-purple-500/20 text-purple-500'
+                          }>
+                            {order.status}
+                          </Badge>
+                        </td>
+                        <td className="py-3 px-4">
+                          <div className="flex items-center space-x-2">
+                            <Button size="sm" variant="outline" className="h-8 text-xs">
+                              Details
                             </Button>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </CardContent>
-              <CardFooter>
-                <Button variant="outline" className="w-full">
-                  {t('dashboard.viewAllOrders')}
-                </Button>
-              </CardFooter>
-            </Card>
-            
-            <Card>
-              <CardHeader>
-                <CardTitle>{t('dashboard.menuManagement')}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <Tabs defaultValue="items">
-                  <TabsList className="mb-4">
-                    <TabsTrigger value="items">{t('dashboard.items')}</TabsTrigger>
-                    <TabsTrigger value="addItem">{t('dashboard.addItem')}</TabsTrigger>
-                    <TabsTrigger value="categories">{t('dashboard.categories')}</TabsTrigger>
-                  </TabsList>
-                  
-                  <TabsContent value="items">
-                    <div className="overflow-x-auto">
-                      <table className="w-full">
-                        <thead>
-                          <tr className="text-left text-muted-foreground text-sm">
-                            <th className="pb-2">{t('dashboard.name')}</th>
-                            <th className="pb-2">{t('dashboard.category')}</th>
-                            <th className="pb-2">{t('dashboard.price')}</th>
-                            <th className="pb-2">{t('dashboard.status')}</th>
-                            <th className="pb-2">{t('dashboard.actions')}</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {menuItems.map((item) => (
-                            <tr key={item.id} className="border-b border-border text-sm">
-                              <td className="py-3">{item.name}</td>
-                              <td className="py-3">{item.category}</td>
-                              <td className="py-3">π {item.price.toFixed(2)}</td>
-                              <td className="py-3">
-                                <span className={`px-2 py-1 rounded-full text-xs ${
-                                  item.available ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-                                }`}>
-                                  {item.available ? t('dashboard.available') : t('dashboard.unavailable')}
-                                </span>
-                              </td>
-                              <td className="py-3">
-                                <div className="flex space-x-1">
-                                  <Button variant="ghost" size="sm">
-                                    {t('dashboard.edit')}
-                                  </Button>
-                                  <Button variant="ghost" size="sm" className="text-red-500">
-                                    {t('dashboard.delete')}
-                                  </Button>
-                                </div>
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  </TabsContent>
-                  
-                  <TabsContent value="addItem">
-                    <form onSubmit={handleAddMenuItem} className="space-y-4">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="itemName">{t('dashboard.itemName')}</Label>
-                          <Input 
-                            id="itemName" 
-                            value={newItemName} 
-                            onChange={(e) => setNewItemName(e.target.value)} 
-                            placeholder={t('dashboard.enterItemName')}
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="itemCategory">{t('dashboard.category')}</Label>
-                          <Input 
-                            id="itemCategory" 
-                            value={newItemCategory} 
-                            onChange={(e) => setNewItemCategory(e.target.value)} 
-                            placeholder={t('dashboard.enterCategory')}
-                          />
-                        </div>
-                      </div>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="itemPrice">{t('dashboard.price')}</Label>
-                          <div className="relative">
-                            <Input 
-                              id="itemPrice" 
-                              type="number" 
-                              step="0.01" 
-                              min="0.01" 
-                              value={newItemPrice} 
-                              onChange={(e) => setNewItemPrice(e.target.value)} 
-                              placeholder="0.00"
-                            />
-                            <div className="absolute right-3 top-2 text-muted-foreground">Pi</div>
+                            <select 
+                              className="text-xs border rounded p-1"
+                              value={order.status}
+                              onChange={(e) => handleStatusChange(order.id, e.target.value)}
+                            >
+                              <option value="new">New</option>
+                              <option value="preparing">Preparing</option>
+                              <option value="ready">Ready</option>
+                              <option value="delivered">Delivered</option>
+                            </select>
                           </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+        
+        {/* Menu Tab */}
+        <TabsContent value="menu">
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between">
+              <div>
+                <CardTitle>Menu Items</CardTitle>
+                <CardDescription>Manage your restaurant menu</CardDescription>
+              </div>
+              <Button className="button-gradient" size="sm" onClick={handleAddMenuItem}>
+                <PlusCircle className="mr-2 h-4 w-4" />
+                Add Item
+              </Button>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {mockMenuItems.map((item) => (
+                  <Card key={item.id} className="flex overflow-hidden">
+                    <div className="w-20 h-20 flex-shrink-0">
+                      <img 
+                        src={item.image} 
+                        alt={item.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <CardContent className="p-3 flex-grow flex flex-col">
+                      <div className="flex justify-between">
+                        <h3 className="font-medium">{item.name}</h3>
+                        <span className="font-semibold text-sm">π {item.price.toFixed(2)}</span>
+                      </div>
+                      <div className="text-xs text-muted-foreground mb-2">
+                        {item.category}
+                      </div>
+                      <div className="flex justify-between items-center mt-auto">
+                        <Badge variant="outline" className={item.available ? 'bg-green-500/20 text-green-500' : 'bg-red-500/20 text-red-500'}>
+                          {item.available ? 'Available' : 'Unavailable'}
+                        </Badge>
+                        <div className="flex space-x-1">
+                          <Button 
+                            size="icon" 
+                            variant="ghost" 
+                            className="h-7 w-7 text-blue-500"
+                          >
+                            <FileEdit className="h-4 w-4" />
+                          </Button>
+                          <Button 
+                            size="icon" 
+                            variant="ghost" 
+                            className="h-7 w-7 text-red-500"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                          <Button 
+                            size="icon"
+                            variant="ghost"
+                            className="h-7 w-7"
+                            onClick={() => handleToggleAvailability(item.id)}
+                          >
+                            <Package className="h-4 w-4" />
+                          </Button>
                         </div>
                       </div>
-                      <Button type="submit" className="button-gradient">
-                        {t('dashboard.addItem')}
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+        
+        {/* Reviews Tab */}
+        <TabsContent value="reviews">
+          <Card>
+            <CardHeader>
+              <CardTitle>Customer Reviews</CardTitle>
+              <CardDescription>View and respond to customer reviews</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {mockReviews.map((review) => (
+                  <Card key={review.id} className="p-4">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <div className="flex items-center mb-1">
+                          <span className="font-medium mr-2">{review.customer}</span>
+                          <span className="text-xs text-muted-foreground">{review.date}</span>
+                        </div>
+                        <div className="flex items-center mb-2">
+                          {[...Array(5)].map((_, i) => (
+                            <Star 
+                              key={i}
+                              className={`h-4 w-4 ${i < review.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                      <Button size="sm" variant="ghost" className="text-xs">
+                        <MessageSquare className="h-3 w-3 mr-1" />
+                        Reply
                       </Button>
-                    </form>
-                  </TabsContent>
-                  
-                  <TabsContent value="categories">
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between">
-                        <span>برجر</span>
-                        <div className="flex space-x-2">
-                          <Button variant="ghost" size="sm">{t('dashboard.edit')}</Button>
-                          <Button variant="ghost" size="sm" className="text-red-500">{t('dashboard.delete')}</Button>
-                        </div>
-                      </div>
-                      <Separator />
-                      <div className="flex items-center justify-between">
-                        <span>بيتزا</span>
-                        <div className="flex space-x-2">
-                          <Button variant="ghost" size="sm">{t('dashboard.edit')}</Button>
-                          <Button variant="ghost" size="sm" className="text-red-500">{t('dashboard.delete')}</Button>
-                        </div>
-                      </div>
-                      <Separator />
-                      <div className="flex items-center justify-between">
-                        <span>ساندويش</span>
-                        <div className="flex space-x-2">
-                          <Button variant="ghost" size="sm">{t('dashboard.edit')}</Button>
-                          <Button variant="ghost" size="sm" className="text-red-500">{t('dashboard.delete')}</Button>
-                        </div>
-                      </div>
-                      <Separator />
-                      <div className="flex items-center justify-between">
-                        <span>سلطة</span>
-                        <div className="flex space-x-2">
-                          <Button variant="ghost" size="sm">{t('dashboard.edit')}</Button>
-                          <Button variant="ghost" size="sm" className="text-red-500">{t('dashboard.delete')}</Button>
-                        </div>
-                      </div>
                     </div>
-                  </TabsContent>
-                </Tabs>
-              </CardContent>
-            </Card>
-          </div>
-          
-          {/* Right Column (1/3) */}
-          <div className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>{t('dashboard.quickActions')}</CardTitle>
-                <CardDescription>{t('dashboard.manageYourRestaurant')}</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-2">
-                <Button variant="outline" className="w-full justify-start">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-bell mr-2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
-                  {t('dashboard.manageOrders')}
-                </Button>
-                <Button variant="outline" className="w-full justify-start">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-utensils mr-2"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2"/><path d="M18.5 15a2.5 2.5 0 0 0 0 5 2.5 2.5 0 0 0 2.5-2.5V2"/></svg>
-                  {t('dashboard.editMenu')}
-                </Button>
-                <Button variant="outline" className="w-full justify-start">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-image mr-2"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
-                  {t('dashboard.updatePhotos')}
-                </Button>
-                <Button variant="outline" className="w-full justify-start">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-settings mr-2"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
-                  {t('dashboard.restaurantSettings')}
-                </Button>
-                <Button variant="default" className="w-full justify-start button-gradient">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-wallet mr-2"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 7v12a2 2 0 0 0 2 2h16v-5"/><path d="M16 12h2a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2z"/></svg>
-                  {t('dashboard.piPayments')}
-                </Button>
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardHeader>
-                <CardTitle>{t('dashboard.earnings')}</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">{t('dashboard.today')}</span>
-                  <span className="font-bold">π 125.50</span>
+                    <div className="text-sm">{review.comment}</div>
+                  </Card>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+        
+        {/* Messages Tab */}
+        <TabsContent value="messages">
+          <Card>
+            <CardHeader>
+              <CardTitle>Customer Messages</CardTitle>
+              <CardDescription>View and respond to customer inquiries</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-col items-center justify-center py-8 text-center">
+                <MessageSquare className="h-12 w-12 text-muted-foreground mb-4" />
+                <h3 className="text-xl font-medium mb-2">No messages yet</h3>
+                <p className="text-muted-foreground mb-4">
+                  When customers send you messages, they will appear here
+                </p>
+                <Button variant="outline">Refresh</Button>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+        
+        {/* Settings Tab */}
+        <TabsContent value="settings">
+          <Card>
+            <CardHeader>
+              <CardTitle>Restaurant Settings</CardTitle>
+              <CardDescription>Manage your restaurant profile and settings</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div>
+                <h3 className="font-medium mb-2">Restaurant Information</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-sm font-medium">Restaurant Name</label>
+                    <Input defaultValue="Ahmed's Shawarma" className="mt-1" />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium">Contact Phone</label>
+                    <Input defaultValue="+20 123-456-7890" className="mt-1" />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium">Address</label>
+                    <Input defaultValue="123 Cairo Street, Egypt" className="mt-1" />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium">Cuisine Type</label>
+                    <Input defaultValue="Lebanese, Middle Eastern" className="mt-1" />
+                  </div>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">{t('dashboard.thisWeek')}</span>
-                  <span className="font-bold">π 875.25</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">{t('dashboard.thisMonth')}</span>
-                  <span className="font-bold">π 2,750.50</span>
-                </div>
-                <Separator />
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">{t('dashboard.pendingPayout')}</span>
-                  <span className="font-bold text-pi">π 2,750.50</span>
-                </div>
-              </CardContent>
-              <CardFooter>
-                <Button className="w-full button-gradient">
-                  {t('dashboard.withdrawFunds')}
-                </Button>
-              </CardFooter>
-            </Card>
-            
-            <Card>
-              <CardHeader>
-                <CardTitle>{t('dashboard.customerReviews')}</CardTitle>
-                <CardDescription>{t('dashboard.recentReviews')}</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="font-medium">أحمد محمد</span>
-                    <div className="flex">
-                      {'★★★★☆'}
+                <Button className="mt-4">Save Information</Button>
+              </div>
+              
+              <div className="border-t pt-4">
+                <h3 className="font-medium mb-2">Opening Hours</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-sm font-medium">Monday - Friday</label>
+                    <div className="flex gap-2 mt-1">
+                      <Input defaultValue="10:00 AM" />
+                      <span className="flex items-center">to</span>
+                      <Input defaultValue="10:00 PM" />
                     </div>
                   </div>
-                  <p className="text-sm text-muted-foreground">طعام رائع وخدمة ممتازة! سأعود مرة أخرى بالتأكيد.</p>
-                </div>
-                <Separator />
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="font-medium">سارة أحمد</span>
-                    <div className="flex">
-                      {'★★★★★'}
+                  <div>
+                    <label className="text-sm font-medium">Saturday - Sunday</label>
+                    <div className="flex gap-2 mt-1">
+                      <Input defaultValue="11:00 AM" />
+                      <span className="flex items-center">to</span>
+                      <Input defaultValue="11:00 PM" />
                     </div>
                   </div>
-                  <p className="text-sm text-muted-foreground">من أفضل المطاعم التي جربتها. الأكل لذيذ والأسعار معقولة.</p>
                 </div>
-              </CardContent>
-              <CardFooter>
-                <Button variant="outline" className="w-full">
-                  {t('dashboard.viewAllReviews')}
-                </Button>
-              </CardFooter>
-            </Card>
-          </div>
-        </div>
-      </Container>
-    </>
+                <Button className="mt-4">Update Hours</Button>
+              </div>
+              
+              <div className="border-t pt-4">
+                <h3 className="font-medium mb-2">Pi Network Integration</h3>
+                <Card className="p-4 bg-pi/10">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="font-medium">Pi Network Integration is Active</p>
+                      <p className="text-sm text-muted-foreground">You are accepting Pi payments</p>
+                    </div>
+                    <Button variant="outline">Configure</Button>
+                  </div>
+                </Card>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
+    </div>
   );
 };
 
