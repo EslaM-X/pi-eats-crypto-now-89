@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { useLocation, Link } from 'react-router-dom';
-import { Home, Utensils, ShoppingBag, Wallet, Award } from 'lucide-react';
+import { Home, Utensils, ShoppingBag, Wallet } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useLanguage } from '@/contexts/LanguageContext';
 

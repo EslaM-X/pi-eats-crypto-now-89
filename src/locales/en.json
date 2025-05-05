@@ -12,8 +12,7 @@
     "addFood": "Add Food",
     "orders": "My Orders",
     "wallet": "Wallet",
-    "rewards": "Rewards",
-    "mining": "Mining"
+    "rewards": "Rewards"
   },
   "auth": {
     "connectWithPi": "Connect with Pi",
@@ -114,18 +113,6 @@
     "history": "Rewards History",
     "earnedOn": "Earned on",
     "noRewards": "No rewards"
-  },
-  "mining": {
-    "title": "πEat Mining",
-    "subtitle": "Press the mine button daily",
-    "button": "Mine",
-    "nextSession": "Next Session",
-    "lastSession": "Last Session",
-    "miningSuccess": "Successfully mined!",
-    "points": "points",
-    "hours": "hours",
-    "minutes": "minutes",
-    "seconds": "seconds"
   },
   "theme": {
     "light": "Light Mode",

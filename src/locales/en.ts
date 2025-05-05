@@ -12,7 +12,6 @@ export default {
     orders: 'Orders',
     wallet: 'Wallet',
     rewards: 'Rewards',
-    mining: 'Mining',
     addFood: 'Add Food',
     cart: 'Cart'
   },

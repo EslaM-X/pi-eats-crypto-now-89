@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Menu, X, Pickaxe, ChefHat } from 'lucide-react';
+import { Menu, X, ChefHat } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
 
@@ -24,7 +24,6 @@ const Header = () => {
     { path: '/orders', label: t('nav.orders') },
     { path: '/wallet', label: t('nav.wallet') },
     { path: '/rewards', label: t('nav.rewards') },
-    { path: '/mining', label: t('nav.mining'), icon: <Pickaxe className="h-4 w-4 inline-block mr-1" /> },
   ];
 
   const toggleMobileMenu = () => {
