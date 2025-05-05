@@ -6,12 +6,28 @@
     @apply bg-white/30 backdrop-blur-lg border border-white/30 shadow-lg rounded-2xl dark:bg-black/30 dark:border-white/10 hover:shadow-xl transition-all duration-300;
   }
   
+  .glass-nav {
+    @apply bg-white/70 backdrop-blur-xl border-b border-white/20 dark:bg-black/50 dark:border-white/5 shadow-sm;
+  }
+  
+  .glass-button {
+    @apply bg-white/20 backdrop-blur-md border border-white/30 hover:bg-white/30 dark:bg-white/10 dark:hover:bg-white/20 transition-colors duration-300;
+  }
+  
   .button-gradient {
-    @apply bg-gradient-to-r from-pi to-pi-light hover:from-pi-dark hover:to-pi text-white transition-all duration-300;
+    @apply bg-gradient-to-r from-pi to-pi-light hover:from-pi-dark hover:to-pi text-white transition-all duration-300 shadow-md hover:shadow-lg;
+  }
+  
+  .button-gradient-orange {
+    @apply bg-gradient-to-r from-orange-500 to-orange-400 hover:from-orange-600 hover:to-orange-500 text-white transition-all duration-300 shadow-md hover:shadow-lg;
   }
   
   .card-gradient {
     @apply bg-gradient-to-br from-card to-secondary/10 backdrop-blur-sm;
+  }
+  
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-xl hover:transform hover:scale-[1.02] hover:-translate-y-1;
   }
   
   .interactive-card {
@@ -26,4 +42,103 @@
   .connect-pi-button {
     @apply relative overflow-hidden bg-gradient-to-r from-pi via-orange to-pi bg-[length:200%_100%] animate-gradient font-bold tracking-wider py-2 px-4 rounded-lg text-white shadow-lg hover:shadow-xl transition-all duration-300;
   }
+  
+  /* New fancy cards */
+  .fancy-card {
+    @apply relative overflow-hidden rounded-xl bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-all duration-300;
+  }
+  
+  .fancy-card::before {
+    content: '';
+    @apply absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-pi to-orange;
+  }
+  
+  /* Elevated card with subtle interaction */
+  .elevated-card {
+    @apply bg-white dark:bg-gray-800 rounded-xl shadow-[0_10px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_15px_30px_rgba(0,0,0,0.1)] transition-all duration-300 border border-gray-100 dark:border-gray-700;
+  }
+  
+  /* Food item card */
+  .food-card {
+    @apply relative bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300;
+  }
+  
+  .food-card-image {
+    @apply h-48 w-full object-cover transition-transform duration-500;
+  }
+  
+  .food-card:hover .food-card-image {
+    @apply transform scale-105;
+  }
+  
+  /* Badge styles */
+  .badge-primary {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-pi/10 text-pi dark:bg-pi/20;
+  }
+  
+  .badge-secondary {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange/10 text-orange dark:bg-orange/20;
+  }
+  
+  .badge-success {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300;
+  }
+  
+  /* Restaurant rating badge */
+  .rating-badge {
+    @apply inline-flex items-center px-2 py-1 rounded-md text-sm font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300;
+  }
+  
+  /* Mobile navbar with glass effect */
+  .mobile-nav-glass {
+    @apply fixed bottom-0 left-0 right-0 bg-white/70 dark:bg-gray-900/70 backdrop-blur-lg border-t border-gray-200 dark:border-gray-700 shadow-lg z-50;
+  }
+  
+  /* Notification dot */
+  .notification-dot {
+    @apply absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full border border-white dark:border-gray-800;
+  }
+  
+  /* Icon wrapper for nav items */
+  .nav-icon-wrapper {
+    @apply flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 transition-colors duration-200;
+  }
+  
+  .nav-icon-active {
+    @apply bg-pi/10 text-pi dark:bg-pi/20;
+  }
+  
+  /* Pi logo glow effect */
+  .pi-logo-glow {
+    @apply relative;
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+  }
+  
+  /* Shimmer effect for loading states */
+  .shimmer-loading {
+    @apply bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 bg-[length:200%_100%] animate-shimmer;
+  }
+  
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+  
+  .animate-shimmer {
+    animation: shimmer 2s infinite;
+  }
+  
+  /* Price tag styles */
+  .price-tag {
+    @apply inline-flex items-center px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded-md text-sm font-medium text-gray-800 dark:text-gray-200;
+  }
+  
+  .price-tag-discount {
+    @apply inline-flex items-center px-2 py-1 bg-red-100 dark:bg-red-900/30 rounded-md text-sm font-medium text-red-800 dark:text-red-300;
+  }
 }
+
