@@ -8,6 +8,7 @@ import { PaymentProvider } from "./PaymentContext";
 import { CartProvider } from "./CartContext";
 import { HomeFoodProvider } from "./homefood/HomeFoodContext";
 import { OrdersProvider } from "./OrdersContext";
+import { WalletProvider } from "./WalletContext";
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -15,15 +16,17 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
       <LanguageProvider>
         <PiAuthProvider>
           <PiPriceProvider>
-            <PaymentProvider>
-              <CartProvider>
-                <OrdersProvider>
-                  <HomeFoodProvider>
-                    {children}
-                  </HomeFoodProvider>
-                </OrdersProvider>
-              </CartProvider>
-            </PaymentProvider>
+            <WalletProvider>
+              <PaymentProvider>
+                <CartProvider>
+                  <OrdersProvider>
+                    <HomeFoodProvider>
+                      {children}
+                    </HomeFoodProvider>
+                  </OrdersProvider>
+                </CartProvider>
+              </PaymentProvider>
+            </WalletProvider>
           </PiPriceProvider>
         </PiAuthProvider>
       </LanguageProvider>

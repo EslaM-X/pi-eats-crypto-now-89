@@ -12,6 +12,7 @@ import Index from "./pages/Index";
 import Restaurants from "./pages/Restaurants";
 import RestaurantDetails from "./pages/RestaurantDetails";
 import Wallet from "./pages/Wallet";
+import PiWallet from "./pages/PiWallet";
 import Rewards from "./pages/Rewards";
 import Mining from "./pages/Mining";
 import Orders from "./pages/Orders";
@@ -21,6 +22,7 @@ import HomeFood from "./pages/HomeFood";
 import FoodProviderDetails from "./pages/FoodProviderDetails";
 import AddFoodListing from "./pages/AddFoodListing";
 import PiPaymentDemo from "./pages/PiPaymentDemo";
+import RestaurantDashboard from "./pages/RestaurantDashboard";
 import { MobileNavigation, MobileNavbar } from "./frontend"; 
 import { useIsMobile } from "./frontend/hooks/use-mobile";
 import { useLanguage } from "./contexts/LanguageContext";
@@ -49,6 +51,7 @@ const AppContent = () => {
           <Route path="/restaurants" element={<Restaurants />} />
           <Route path="/restaurants/:id" element={<RestaurantDetails />} />
           <Route path="/wallet" element={<Wallet />} />
+          <Route path="/pi-wallet" element={<PiWallet />} />
           <Route path="/rewards" element={<Rewards />} />
           <Route path="/mining" element={<Mining />} />
           <Route path="/orders" element={<Orders />} />
@@ -57,6 +60,7 @@ const AppContent = () => {
           <Route path="/homefood/:id" element={<FoodProviderDetails />} />
           <Route path="/homefood/add" element={<AddFoodListing />} />
           <Route path="/pi-payment" element={<PiPaymentDemo />} />
+          <Route path="/restaurant-dashboard" element={<RestaurantDashboard />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         
