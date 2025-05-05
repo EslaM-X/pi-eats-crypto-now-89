@@ -49,9 +49,6 @@ const UserMenu = () => {
           <Link to="/rewards">{t('nav.rewards')}</Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link to="/mining">Mining</Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
           <Link to="/orders">{t('nav.orders')}</Link>
         </DropdownMenuItem>
         <DropdownMenuItem onClick={logout}>

@@ -14,7 +14,6 @@ import RestaurantDetails from "./pages/RestaurantDetails";
 import Wallet from "./pages/Wallet";
 import PiWallet from "./pages/PiWallet";
 import Rewards from "./pages/Rewards";
-import Mining from "./pages/Mining";
 import Orders from "./pages/Orders";
 import Cart from "./pages/Cart";
 import NotFound from "./pages/NotFound";
@@ -23,9 +22,17 @@ import FoodProviderDetails from "./pages/FoodProviderDetails";
 import AddFoodListing from "./pages/AddFoodListing";
 import PiPaymentDemo from "./pages/PiPaymentDemo";
 import RestaurantDashboard from "./pages/RestaurantDashboard";
+import AdminDashboard from "./pages/admin/AdminDashboard";
 import { MobileNavigation, MobileNavbar } from "./frontend"; 
 import { useIsMobile } from "./frontend/hooks/use-mobile";
 import { useLanguage } from "./contexts/LanguageContext";
+import AdminLayout from "./pages/admin/AdminLayout";
+import AdminUsers from "./pages/admin/AdminUsers";
+import AdminRestaurants from "./pages/admin/AdminRestaurants";
+import AdminOrders from "./pages/admin/AdminOrders";
+import AdminPayments from "./pages/admin/AdminPayments";
+import AdminStatistics from "./pages/admin/AdminStatistics";
+import AdminSettings from "./pages/admin/AdminSettings";
 
 // Configure the QueryClient with Pi Network styling
 const queryClient = new QueryClient({
@@ -53,7 +60,6 @@ const AppContent = () => {
           <Route path="/wallet" element={<Wallet />} />
           <Route path="/pi-wallet" element={<PiWallet />} />
           <Route path="/rewards" element={<Rewards />} />
-          <Route path="/mining" element={<Mining />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/homefood" element={<HomeFood />} />
@@ -61,6 +67,18 @@ const AppContent = () => {
           <Route path="/homefood/add" element={<AddFoodListing />} />
           <Route path="/pi-payment" element={<PiPaymentDemo />} />
           <Route path="/restaurant-dashboard" element={<RestaurantDashboard />} />
+          
+          {/* Admin Dashboard Routes */}
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<AdminDashboard />} />
+            <Route path="users" element={<AdminUsers />} />
+            <Route path="restaurants" element={<AdminRestaurants />} />
+            <Route path="orders" element={<AdminOrders />} />
+            <Route path="payments" element={<AdminPayments />} />
+            <Route path="statistics" element={<AdminStatistics />} />
+            <Route path="settings" element={<AdminSettings />} />
+          </Route>
+          
           <Route path="*" element={<NotFound />} />
         </Routes>
         
