@@ -46,7 +46,7 @@ PiEat-Me/
 │   │   ├── wallet/           # Wallet context implementation
 │   │   ├── homefood/         # Home food context
 │   │   ├── language/         # Language context
-│   │   ├── mining/           # Mining context
+│   │ 
 │   │   └── Other contexts (Cart, Orders, Payment, etc.)
 │   │
 │   ├── frontend/             # Frontend-specific code
