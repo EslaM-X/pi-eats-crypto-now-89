@@ -17,9 +17,8 @@ const MiningPageHeader = ({ totalMined, formatNumberPrecision }: MiningPageHeade
     <div className="mb-6">
       <div className="flex items-center justify-between mb-4">
         <h1 className="text-3xl font-bold flex items-center gap-2">
-          <Pickaxe className="h-8 w-8 text-pi" />
-          {t('mining.title')}
-          <PiEatLogo size="md" className="ml-2" style="mining" />
+          <PiEatLogo size="md" />
+          <span>Mining</span>
         </h1>
         <div className="text-center">
           <div className="text-lg font-bold">{formatNumberPrecision(totalMined)} PTM</div>
@@ -29,7 +28,7 @@ const MiningPageHeader = ({ totalMined, formatNumberPrecision }: MiningPageHeade
       
       <Alert>
         <AlertCircle className="h-4 w-4" />
-        <AlertTitle>{t('mining.title')}</AlertTitle>
+        <AlertTitle>πEat Mining</AlertTitle>
         <AlertDescription>
           {t('mining.subtitle')}
         </AlertDescription>

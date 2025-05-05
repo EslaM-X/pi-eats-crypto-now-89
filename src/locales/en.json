@@ -8,7 +8,7 @@
   "nav": {
     "home": "Home",
     "restaurants": "Restaurants",
-    "homefood": "Home Food",
+    "homefood": "HomeFood",
     "addFood": "Add Food",
     "orders": "My Orders",
     "wallet": "Wallet",
@@ -49,7 +49,7 @@
     "addReview": "Add Review"
   },
   "homefood": {
-    "title": "Home Food",
+    "title": "HomeFood",
     "subtitle": "Discover the best homemade food",
     "add": {
       "title": "Add Home Food",
@@ -116,7 +116,7 @@
     "noRewards": "No rewards"
   },
   "mining": {
-    "title": "Pi Mining",
+    "title": "πEat Mining",
     "subtitle": "Press the mine button daily",
     "button": "Mine",
     "nextSession": "Next Session",

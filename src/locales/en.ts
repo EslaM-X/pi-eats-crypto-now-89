@@ -8,7 +8,7 @@ export default {
   nav: {
     home: 'Home',
     restaurants: 'Restaurants',
-    homefood: 'Home Food',
+    homefood: 'HomeFood',
     orders: 'Orders',
     wallet: 'Wallet',
     rewards: 'Rewards',
@@ -29,7 +29,7 @@ export default {
     featured: 'Featured Restaurants',
     categories: 'Popular Categories',
     viewAll: 'View All',
-    homefood: 'Home Cooking'
+    homefood: 'HomeFood'
   },
   food: {
     addToCart: 'Add',

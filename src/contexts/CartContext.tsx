@@ -113,8 +113,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   );
   
   // Use proper conversion method or fallback to the original value
-  const totalPiAmount = piPriceContext && typeof piPriceContext.convertUsdToPi === 'function' 
-    ? piPriceContext.convertUsdToPi(totalAmount)
+  const totalPiAmount = piPriceContext && typeof piPriceContext.convertPiToUsd === 'function' 
+    ? piPriceContext.convertPiToUsd(totalAmount)
     : totalAmount;
   
   return (

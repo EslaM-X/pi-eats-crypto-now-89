@@ -11,6 +11,7 @@ import MiningPageHeader from '@/components/mining/MiningPageHeader';
 import MiningTabs from '@/components/mining/MiningTabs';
 import MiningAdDisplay from '@/components/mining/MiningAdDisplay';
 import { useLanguage } from '@/contexts/LanguageContext';
+import PiEatLogo from '@/components/PiEatLogo';
 
 const Mining = () => {
   const { user } = usePiAuth();
@@ -82,10 +83,17 @@ const Mining = () => {
     <>
       <Header />
       <Container className="py-6">
-        <MiningPageHeader 
-          totalMined={totalMined} 
-          formatNumberPrecision={formatNumberPrecision} 
-        />
+        <div className="mb-6">
+          <div className="flex items-center justify-between mb-4">
+            <h1 className="text-3xl font-bold flex items-center gap-2">
+              <PiEatLogo size="md" /> Mining
+            </h1>
+            <div className="text-center">
+              <div className="text-lg font-bold">{formatNumberPrecision(totalMined)} PTM</div>
+              <div className="text-xs text-muted-foreground">{t('mining.totalMined')}</div>
+            </div>
+          </div>
+        </div>
         
         <MiningHeader onStartMining={handleStartMining} isMining={showAnimation} />
         

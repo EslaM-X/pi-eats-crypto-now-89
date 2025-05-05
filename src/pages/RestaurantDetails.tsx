@@ -1,31 +1,16 @@
 import React, { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { ChevronLeft, MapPin, Clock, Star, Info, Phone, ShoppingCart, Plus, Minus } from 'lucide-react';
+import { ShoppingCart } from 'lucide-react';
 import Header from '@/components/Header';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useCart } from '@/contexts/CartContext';
 import { toast } from 'sonner';
-
-type MenuCategory = {
-  id: string;
-  name: string;
-  items: MenuItem[];
-};
-
-type MenuItem = {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  image: string;
-  popular?: boolean;
-};
+import RestaurantHeader from '@/components/restaurant/RestaurantHeader';
+import RestaurantInfo from '@/components/restaurant/RestaurantInfo';
+import MenuCategoryTab from '@/components/restaurant/MenuCategoryTab';
 
 // Sample restaurant data - in a real app, this would come from an API
 const RESTAURANTS = [
@@ -204,7 +189,7 @@ const RestaurantDetails = () => {
     );
   }
   
-  const addToCart = (item: MenuItem) => {
+  const addToCart = (item: any) => {
     addItem({
       id: item.id,
       name: item.name,
@@ -255,66 +240,11 @@ const RestaurantDetails = () => {
       <Header />
       
       {/* Restaurant Header */}
-      <div 
-        className="relative h-64 bg-cover bg-center"
-        style={{ backgroundImage: `url(${restaurant.image})` }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/10">
-          <div className="container mx-auto px-4 h-full flex flex-col justify-end pb-4">
-            <Link to="/restaurants">
-              <Button variant="ghost" className="absolute top-4 left-4 text-white bg-black/30 hover:bg-black/40">
-                <ChevronLeft className="h-5 w-5" />
-                {t('restaurants.back')}
-              </Button>
-            </Link>
-            <div>
-              <h1 className="text-3xl font-bold text-white">{restaurant.name}</h1>
-              <div className="flex items-center mt-2 space-x-4">
-                <Badge variant="secondary" className="bg-white/20 text-white">
-                  {restaurant.cuisine}
-                </Badge>
-                <div className="flex items-center text-white">
-                  <Star className="h-4 w-4 text-yellow-400 fill-yellow-400 mr-1" />
-                  <span>{restaurant.rating.toFixed(1)}</span>
-                </div>
-                <div className="flex items-center text-white">
-                  <Clock className="h-4 w-4 mr-1" />
-                  <span>{restaurant.deliveryTime}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <RestaurantHeader restaurant={restaurant} />
       
       <div className="container mx-auto px-4 py-6">
         {/* Restaurant Info */}
-        <Card className={`mb-6 ${theme === 'dark' ? 'bg-muted/20' : ''}`}>
-          <CardContent className="p-6">
-            <p className="text-muted-foreground mb-4">{restaurant.description}</p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="flex items-start">
-                <MapPin className="h-5 w-5 mr-2 flex-shrink-0" />
-                <span>{restaurant.address}</span>
-              </div>
-              <div className="flex items-start">
-                <Clock className="h-5 w-5 mr-2 flex-shrink-0" />
-                <span>{restaurant.openingHours}</span>
-              </div>
-              <div className="flex items-start">
-                <Phone className="h-5 w-5 mr-2 flex-shrink-0" />
-                <span>{restaurant.phone}</span>
-              </div>
-            </div>
-            <div className="mt-4 flex items-center text-sm text-muted-foreground">
-              <Info className="h-4 w-4 mr-1" />
-              <span>
-                {t('restaurants.minOrder')}: π{restaurant.minOrder.toFixed(2)} • 
-                {t('restaurants.deliveryFee')}: π{restaurant.deliveryFee.toFixed(2)}
-              </span>
-            </div>
-          </CardContent>
-        </Card>
+        <RestaurantInfo restaurant={restaurant} theme={theme} />
         
         {/* Menu */}
         <h2 className="text-2xl font-bold mb-4">{t('restaurants.menu')}</h2>
@@ -339,74 +269,14 @@ const RestaurantDetails = () => {
           
           {restaurant.categories.map((category) => (
             <TabsContent key={category.id} value={category.id} className="mt-0">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {category.items.map((item) => (
-                  <Card key={item.id} className={`overflow-hidden ${theme === 'dark' ? 'bg-muted/20' : ''}`}>
-                    <div className="flex flex-col sm:flex-row">
-                      <div className="sm:w-1/3 h-32 sm:h-auto">
-                        <img 
-                          src={item.image} 
-                          alt={item.name}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className="p-4 flex-1 flex flex-col justify-between">
-                        <div>
-                          <div className="flex justify-between items-start">
-                            <h3 className="font-medium">
-                              {item.name}
-                              {item.popular && (
-                                <Badge variant="secondary" className="ml-2 bg-orange/20 text-orange">
-                                  {t('restaurants.popular')}
-                                </Badge>
-                              )}
-                            </h3>
-                            <div className="font-semibold">π {item.price.toFixed(2)}</div>
-                          </div>
-                          <p className="text-sm text-muted-foreground mt-1 line-clamp-2">
-                            {item.description}
-                          </p>
-                        </div>
-                        
-                        <div className="mt-4">
-                          {!isInCart(item.id) ? (
-                            <Button 
-                              onClick={() => addToCart(item)}
-                              size="sm"
-                              className="w-full button-gradient"
-                            >
-                              <Plus className="h-4 w-4 mr-1" />
-                              {t('restaurants.addToCart')}
-                            </Button>
-                          ) : (
-                            <div className="flex items-center justify-between">
-                              <Button
-                                variant="outline"
-                                size="icon"
-                                className="h-8 w-8"
-                                onClick={() => updateItemQuantity(item.id, getItemQuantity(item.id) - 1)}
-                              >
-                                <Minus className="h-4 w-4" />
-                              </Button>
-                              <span className="font-medium px-2">
-                                {getItemQuantity(item.id)}
-                              </span>
-                              <Button
-                                variant="outline"
-                                size="icon"
-                                className="h-8 w-8"
-                                onClick={() => updateItemQuantity(item.id, getItemQuantity(item.id) + 1)}
-                              >
-                                <Plus className="h-4 w-4" />
-                              </Button>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </Card>
-                ))}
-              </div>
+              <MenuCategoryTab 
+                category={category}
+                theme={theme}
+                isInCart={isInCart}
+                getItemQuantity={getItemQuantity}
+                addToCart={addToCart}
+                updateItemQuantity={updateItemQuantity}
+              />
             </TabsContent>
           ))}
         </Tabs>
