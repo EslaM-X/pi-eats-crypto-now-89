@@ -187,7 +187,6 @@ export const arTranslations = {
     piPayments: 'مدفوعات باي',
     piPaymentsDesc: 'ادفع بسلاسة بعملة باي المشفرة لجميع طلبات الطعام الخاصة بك'
   },
-  error: 'حدث خطأ',
   success: 'تم بنجاح!',
   tagline: {
     subtitle: 'دع رحلة الطعام اللذيذ تبدأ!'
@@ -195,7 +194,7 @@ export const arTranslations = {
   retry: 'إعادة المحاولة',
   cancel: 'إلغاء',
   confirm: 'تأكيد',
-  error: {
+  errorData: {
     pageNotFound: 'الصفحة غير موجودة',
     pageDoesNotExist: 'الصفحة التي تبحث عنها غير موجودة.',
     backToHome: 'العودة إلى الرئيسية'

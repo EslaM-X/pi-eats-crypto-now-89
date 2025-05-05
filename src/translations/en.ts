@@ -187,7 +187,6 @@ export const enTranslations = {
     piPayments: 'Pi Payments',
     piPaymentsDesc: 'Pay seamlessly with Pi cryptocurrency for all your food orders'
   },
-  error: 'Something went wrong',
   success: 'Success!',
   tagline: {
     subtitle: 'Let the journey of delicious food begin!'
@@ -195,7 +194,7 @@ export const enTranslations = {
   retry: 'Retry',
   cancel: 'Cancel',
   confirm: 'Confirm',
-  error: {
+  errorData: {
     pageNotFound: 'Page Not Found',
     pageDoesNotExist: 'The page you are looking for does not exist.',
     backToHome: 'Back to Home'
