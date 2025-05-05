@@ -7,6 +7,7 @@ import { PiPriceProvider } from "./PiPriceContext";
 import { PaymentProvider } from "./PaymentContext";
 import { CartProvider } from "./CartContext";
 import { HomeFoodProvider } from "./homefood/HomeFoodContext";
+import { OrdersProvider } from "./OrdersContext";
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -16,9 +17,11 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
           <PiPriceProvider>
             <PaymentProvider>
               <CartProvider>
-                <HomeFoodProvider>
-                  {children}
-                </HomeFoodProvider>
+                <OrdersProvider>
+                  <HomeFoodProvider>
+                    {children}
+                  </HomeFoodProvider>
+                </OrdersProvider>
               </CartProvider>
             </PaymentProvider>
           </PiPriceProvider>

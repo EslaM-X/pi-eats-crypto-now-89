@@ -1,7 +1,6 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ShoppingBag, MapPin, CreditCard, Check } from 'lucide-react';
+import { ShoppingBag, MapPin, CreditCard } from 'lucide-react';
 import Header from '@/components/Header';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -16,7 +15,7 @@ import { toast } from 'sonner';
 
 const Cart = () => {
   const navigate = useNavigate();
-  const { items, totalPrice, clearCart } = useCart();
+  const { items, totalAmount, clearCart } = useCart();
   const { createOrder } = useOrders();
   const { user } = usePiAuth();
   const [deliveryAddress, setDeliveryAddress] = useState('');
@@ -96,7 +95,7 @@ const Cart = () => {
                     />
                     <div className="flex-grow">
                       <h3 className="font-medium">{item.name}</h3>
-                      <p className="text-sm text-muted-foreground">From {item.restaurantName}</p>
+                      {item.restaurantName && <p className="text-sm text-muted-foreground">From {item.restaurantName}</p>}
                       <div className="flex items-center mt-1">
                         <span>Quantity: {item.quantity}</span>
                         <span className="mx-2">•</span>
@@ -121,7 +120,7 @@ const Cart = () => {
               <CardContent className="space-y-4">
                 <div className="flex justify-between">
                   <span>Subtotal</span>
-                  <span>π {totalPrice.toFixed(2)}</span>
+                  <span>π {totalAmount.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Delivery Fee</span>
@@ -130,7 +129,7 @@ const Cart = () => {
                 <Separator />
                 <div className="flex justify-between font-bold">
                   <span>Total</span>
-                  <span>π {(totalPrice + 0.5).toFixed(2)}</span>
+                  <span>π {(totalAmount + 0.5).toFixed(2)}</span>
                 </div>
                 
                 {/* Delivery Address */}

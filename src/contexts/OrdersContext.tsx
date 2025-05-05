@@ -1,3 +1,4 @@
+
 import React, { createContext, useState, useContext, useEffect, ReactNode } from 'react';
 import { toast } from 'sonner';
 import { usePiAuth } from './PiAuthContext';
@@ -132,3 +133,5 @@ export const OrdersProvider = ({ children }: { children: ReactNode }) => {
     </OrdersContext.Provider>
   );
 };
+
+export default OrdersProvider;

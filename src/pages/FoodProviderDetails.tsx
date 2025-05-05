@@ -62,7 +62,6 @@ const FoodProviderDetails = () => {
       name: item.name,
       price: item.price,
       image: item.image,
-      quantity: 1,
       restaurantId: provider.id,
       restaurantName: provider.name
     });

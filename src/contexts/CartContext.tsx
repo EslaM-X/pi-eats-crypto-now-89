@@ -3,12 +3,14 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { toast } from 'sonner';
 import { usePiPrice } from './PiPriceContext';
 
-interface CartItem {
+export interface CartItem {
   id: string;
   name: string;
   price: number;
   quantity: number;
   image?: string;
+  restaurantId?: string;
+  restaurantName?: string;
 }
 
 interface CartContextType {
@@ -37,7 +39,7 @@ export const useCart = () => useContext(CartContext);
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [items, setItems] = useState<CartItem[]>([]);
-  const { convertUsdToPi } = usePiPrice();
+  const piPriceContext = usePiPrice();
   
   // Load cart items from local storage on mount
   useEffect(() => {
@@ -110,7 +112,10 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     0
   );
   
-  const totalPiAmount = convertUsdToPi(totalAmount);
+  // Use proper conversion method or fallback to the original value
+  const totalPiAmount = piPriceContext && typeof piPriceContext.convertUsdToPi === 'function' 
+    ? piPriceContext.convertUsdToPi(totalAmount)
+    : totalAmount;
   
   return (
     <CartContext.Provider
