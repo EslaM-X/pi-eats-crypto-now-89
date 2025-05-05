@@ -29,7 +29,12 @@ export default {
     featured: 'المطاعم المميزة',
     categories: 'الفئات الشائعة',
     viewAll: 'عرض الكل',
-    homefood: 'طعام منزلي'
+    homefood: 'طعام منزلي',
+    exploreRestaurants: 'استكشف المطاعم',
+    exploreHomeFood: 'استكشف الطعام المنزلي',
+    learnMore: 'اعرف المزيد',
+    readyToStart: 'هل أنت جاهز للبدء؟',
+    futureOfDelivery: 'استكشف المطاعم أو الطعام المنزلي وادفع بعملة باي المشفرة. مستقبل توصيل الطعام هنا!'
   },
   food: {
     addToCart: 'أضف إلى السلة',
@@ -174,5 +179,13 @@ export default {
     username: 'اسم المستخدم',
     mined: 'تم تعدينه',
     activity: 'النشاط'
+  },
+  features: {
+    restaurantDelivery: 'توصيل المطاعم',
+    restaurantDesc: 'اطلب من مطاعمك المحلية المفضلة باستخدام عملة باي المشفرة',
+    homeCookedFood: 'طعام منزلي',
+    homeCookedDesc: 'اكتشف واطلب وجبات منزلية أصيلة من الطهاة المحليين',
+    piPayments: 'مدفوعات باي',
+    piPaymentsDesc: 'ادفع بسلاسة بعملة باي المشفرة لجميع طلبات الطعام الخاصة بك'
   }
 };

@@ -52,18 +52,18 @@ const Index = () => {
   const features = [
     {
       icon: <ShoppingBag className="h-8 w-8 mb-3 text-pi" />,
-      title: "Restaurant Delivery",
-      description: "Order from your favorite local restaurants using Pi cryptocurrency"
+      title: language === 'ar' ? t('features.restaurantDelivery') : "Restaurant Delivery",
+      description: language === 'ar' ? t('features.restaurantDesc') : "Order from your favorite local restaurants using Pi cryptocurrency"
     },
     {
       icon: <ChefHat className="h-8 w-8 mb-3 text-orange-500" />,
-      title: "Home Cooked Food",
-      description: "Discover and order authentic home-cooked meals from local chefs"
+      title: language === 'ar' ? t('features.homeCookedFood') : "Home Cooked Food",
+      description: language === 'ar' ? t('features.homeCookedDesc') : "Discover and order authentic home-cooked meals from local chefs"
     },
     {
       icon: <Wallet className="h-8 w-8 mb-3 text-green-500" />,
-      title: "Pi Payments",
-      description: "Pay seamlessly with Pi cryptocurrency for all your food orders"
+      title: language === 'ar' ? t('features.piPayments') : "Pi Payments",
+      description: language === 'ar' ? t('features.piPaymentsDesc') : "Pay seamlessly with Pi cryptocurrency for all your food orders"
     }
   ];
 
@@ -119,7 +119,7 @@ const Index = () => {
                         {feature.icon}
                       </div>
                       <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                      <p className="text-muted-foreground">{feature.description}</p>
+                      <p className={`text-muted-foreground ${language === 'ar' ? 'arabic-text' : ''}`}>{feature.description}</p>
                     </div>
                   </motion.div>
                 ))}
@@ -133,9 +133,11 @@ const Index = () => {
               transition={{ delay: 1 }}
               className="max-w-3xl mx-auto text-center mb-16"
             >
-              <h2 className="text-2xl md:text-3xl font-bold mb-4">Ready to Get Started?</h2>
-              <p className="text-lg text-muted-foreground mb-8">
-                Explore restaurants or homemade food and pay with Pi cryptocurrency. The future of food delivery is here!
+              <h2 className="text-2xl md:text-3xl font-bold mb-4">
+                {language === 'ar' ? t('home.readyToStart') : 'Ready to Get Started?'}
+              </h2>
+              <p className={`text-lg text-muted-foreground mb-8 ${language === 'ar' ? 'arabic-text' : ''}`}>
+                {language === 'ar' ? t('home.futureOfDelivery') : 'Explore restaurants or homemade food and pay with Pi cryptocurrency. The future of food delivery is here!'}
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">

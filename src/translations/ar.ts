@@ -12,7 +12,9 @@ export const arTranslations = {
     homefood: 'طعام منزلي',
     categories: 'تصفح حسب الفئات',
     featured: 'مطاعم مميزة',
-    viewAll: 'عرض الكل'
+    viewAll: 'عرض الكل',
+    readyToStart: 'هل أنت جاهز للبدء؟',
+    futureOfDelivery: 'استكشف المطاعم أو الطعام المنزلي وادفع بعملة باي المشفرة. مستقبل توصيل الطعام هنا!'
   },
   nav: {
     home: 'الرئيسية',
@@ -153,5 +155,13 @@ export const arTranslations = {
     advertisement: 'إعلان',
     continue: 'متابعة',
     adSpace: 'مساحة إعلانية'
+  },
+  features: {
+    restaurantDelivery: 'توصيل المطاعم',
+    restaurantDesc: 'اطلب من مطاعمك المحلية المفضلة باستخدام عملة باي المشفرة',
+    homeCookedFood: 'طعام منزلي',
+    homeCookedDesc: 'اكتشف واطلب وجبات منزلية أصيلة من الطهاة المحليين',
+    piPayments: 'مدفوعات باي',
+    piPaymentsDesc: 'ادفع بسلاسة بعملة باي المشفرة لجميع طلبات الطعام الخاصة بك'
   }
 };
