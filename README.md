@@ -1,198 +1,222 @@
 
-# PiEat-Me - Food Delivery Platform
+# PiEat-Me - منصة توصيل الطعام
 
-A modern food delivery application built on the Pi Network ecosystem, allowing users to order food from restaurants and home-based food providers using Pi cryptocurrency.
+تطبيق حديث لتوصيل الطعام مبني على نظام Pi Network البيئي، يسمح للمستخدمين بطلب الطعام من المطاعم ومقدمي الطعام المنزلي باستخدام عملة Pi المشفرة.
 
-## Project URL
+## رابط المشروع
 
-**URL**: https://lovable.dev/projects/a4068971-3b7c-465e-9229-a5ec131e33e4
+**الرابط**: https://lovable.dev/projects/a4068971-3b7c-465e-9229-a5ec131e33e4
 
-## Project Structure
+## هيكل المشروع
 
 ```
 PiEat-Me/
-├── public/                   # Static files
+├── public/                   # الملفات الثابتة
 ├── src/
-│   ├── backend/              # Backend services
-│   │   ├── integrations/     # External service integrations
-│   │   ├── services/         # API services
-│   │   └── README.md         # Backend documentation
+│   ├── backend/              # خدمات الخلفية
+│   │   ├── integrations/     # تكاملات الخدمات الخارجية
+│   │   ├── services/         # خدمات API
+│   │   └── README.md         # توثيق الخلفية
 │   │
-│   ├── components/           # Reusable UI components
-│   │   ├── cart/             # Cart related components
-│   │   ├── food-provider/    # Food provider components
-│   │   ├── header/           # Header components
-│   │   ├── home/             # Home page components
-│   │   ├── mining/           # Mining feature components
-│   │   ├── restaurant/       # Restaurant related components
-│   │   ├── ui/               # UI library components (shadcn)
-│   │   └── [Various UI components]
+│   ├── components/           # مكونات UI قابلة لإعادة الاستخدام
+│   │   ├── cart/             # مكونات متعلقة بسلة التسوق
+│   │   ├── food-provider/    # مكونات مزودي الطعام
+│   │   ├── header/           # مكونات الترويسة
+│   │   ├── home/             # مكونات الصفحة الرئيسية
+│   │   ├── mining/           # مكونات ميزة التعدين
+│   │   ├── restaurant/       # مكونات متعلقة بالمطاعم
+│   │   ├── ui/               # مكونات مكتبة واجهة المستخدم (shadcn)
+│   │   └── [مكونات UI متنوعة]
 │   │
-│   ├── config/               # Configuration files
+│   ├── config/               # ملفات الإعدادات
 │   │
-│   ├── contexts/             # React Context providers
-│   │   ├── wallet/           # Wallet context implementation
-│   │   │   ├── WalletContext.tsx    # Wallet provider implementation
-│   │   │   ├── WalletTypes.ts       # Wallet type definitions
-│   │   │   └── WalletUtils.ts       # Wallet helper functions
-│   │   ├── homefood/         # HomeFood context
-│   │   ├── language/         # Localization context
-│   │   ├── mining/           # Mining context
-│   │   └── [Other contexts]
+│   ├── contexts/             # مزودي سياق React
+│   │   ├── wallet/           # تنفيذ سياق المحفظة
+│   │   │   ├── WalletContext.tsx    # تنفيذ مزود المحفظة
+│   │   │   ├── WalletTypes.ts       # تعريفات أنواع المحفظة
+│   │   │   └── WalletUtils.ts       # وظائف مساعدة للمحفظة
+│   │   ├── homefood/         # سياق الطعام المنزلي
+│   │   ├── language/         # سياق اللغة
+│   │   ├── mining/           # سياق التعدين
+│   │   └── [سياقات أخرى]
 │   │
-│   ├── frontend/             # Frontend specific code
-│   │   ├── components/       # Frontend only components
-│   │   ├── hooks/            # Frontend hooks
-│   │   ├── utils/            # Frontend utilities
-│   │   └── README.md         # Frontend documentation
+│   ├── frontend/             # كود خاص بالواجهة الأمامية
+│   │   ├── components/       # مكونات الواجهة الأمامية فقط
+│   │   ├── hooks/            # هوكس الواجهة الأمامية
+│   │   ├── utils/            # أدوات مساعدة للواجهة الأمامية
+│   │   └── README.md         # توثيق الواجهة الأمامية
 │   │
-│   ├── hooks/                # Custom React hooks
+│   ├── hooks/                # هوكس React مخصصة
 │   │
-│   ├── integrations/         # Third-party integrations
-│   │   └── supabase/         # Supabase integration
+│   ├── integrations/         # تكاملات الطرف الثالث
+│   │   └── supabase/         # تكامل Supabase
 │   │
-│   ├── lib/                  # Utility libraries
+│   ├── lib/                  # مكتبات مساعدة
 │   │
-│   ├── locales/              # Localization files
+│   ├── locales/              # ملفات الترجمة والتوطين
 │   │
-│   ├── pages/                # Application pages
-│   │   ├── Index.tsx         # Home page
-│   │   ├── Wallet.tsx        # Wallet page
-│   │   ├── PiWallet.tsx      # Pi Wallet page
-│   │   ├── HomeFood.tsx      # HomeFood page
-│   │   ├── Restaurants.tsx   # Restaurants page
-│   │   ├── RestaurantDetails.tsx    # Single restaurant page
-│   │   └── [Other pages]
+│   ├── pages/                # صفحات التطبيق
+│   │   ├── Index.tsx         # الصفحة الرئيسية
+│   │   ├── Wallet.tsx        # صفحة المحفظة
+│   │   ├── PiWallet.tsx      # صفحة محفظة Pi
+│   │   ├── HomeFood.tsx      # صفحة الطعام المنزلي
+│   │   ├── Restaurants.tsx   # صفحة المطاعم
+│   │   ├── RestaurantDetails.tsx    # صفحة تفاصيل المطعم
+│   │   └── [صفحات أخرى]
+│   │   └── admin/           # صفحات لوحة الإدارة
+│   │       ├── AdminDashboard.tsx    # لوحة التحكم الرئيسية للمسؤول
+│   │       ├── AdminOrders.tsx       # إدارة الطلبات
+│   │       ├── AdminUsers.tsx        # إدارة المستخدمين
+│   │       └── [صفحات إدارية أخرى]
 │   │
-│   ├── services/             # Application services
+│   ├── services/             # خدمات التطبيق
 │   │
-│   ├── styles/               # Global styles
+│   ├── styles/               # أنماط عامة
 │   │
-│   ├── translations/         # Translation files
+│   ├── translations/         # ملفات الترجمة
 │   │
-│   ├── types/                # TypeScript type definitions
+│   ├── types/                # تعريفات أنواع TypeScript
 │   │
-│   ├── utils/                # Utility functions
+│   ├── utils/                # وظائف مساعدة
 │   │
-│   ├── App.tsx               # Main application component
-│   ├── App.css               # Main application styles
-│   ├── index.css             # Global CSS
-│   ├── main.tsx              # Application entry point
-│   └── vite-env.d.ts         # Vite environment declarations
+│   ├── App.tsx               # مكون التطبيق الرئيسي
+│   ├── App.css               # أنماط التطبيق الرئيسية
+│   ├── index.css             # CSS العام
+│   ├── main.tsx              # نقطة دخول التطبيق
+│   └── vite-env.d.ts         # إعلانات بيئة Vite
 │
-├── capacitor.config.ts       # Capacitor config (for mobile)
-├── components.json           # shadcn/ui configuration
-├── tailwind.config.ts        # Tailwind CSS configuration
-├── tsconfig.json             # TypeScript configuration
-└── vite.config.ts            # Vite configuration
+├── capacitor.config.ts       # إعدادات Capacitor (للجوال)
+├── components.json           # إعدادات shadcn/ui
+├── tailwind.config.ts        # إعدادات Tailwind CSS
+├── tsconfig.json             # إعدادات TypeScript
+├── vercel.json               # إعدادات Vercel للنشر
+└── vite.config.ts            # إعدادات Vite
 ```
 
-## Key Features
+## الميزات الرئيسية
 
-- **Restaurant & HomeFood Ordering**: Order from restaurants or home-based food providers
-- **Pi Network Integration**: Pay using Pi cryptocurrency
-- **Pi Wallet**: Manage Pi transactions and wallet balance
-- **PiEat Wallet**: Internal wallet for platform rewards and transactions
-- **Mining System**: Earn rewards through the app's mining feature
-- **Multi-language Support**: Supports English and Arabic languages
-- **Responsive Design**: Works on mobile and desktop devices
+- **طلب من المطاعم والطعام المنزلي**: طلب من المطاعم أو مقدمي الطعام المنزلي
+- **تكامل شبكة Pi**: الدفع باستخدام عملة Pi المشفرة
+- **محفظة Pi**: إدارة معاملات Pi ورصيد المحفظة
+- **محفظة PiEat**: محفظة داخلية لمكافآت المنصة والمعاملات
+- **نظام التعدين**: كسب المكافآت من خلال ميزة التعدين في التطبيق
+- **دعم متعدد اللغات**: يدعم اللغتين الإنجليزية والعربية
+- **تصميم متجاوب**: يعمل على أجهزة الجوال وأجهزة سطح المكتب
 
-## Technology Stack
+## التقنيات المستخدمة
 
-- **Frontend**: React, TypeScript, Vite
-- **Styling**: Tailwind CSS, shadcn/ui
-- **State Management**: React Context API, TanStack Query
-- **Routing**: React Router
-- **Backend Integration**: Supabase
-- **Mobile Support**: Capacitor
-- **Payment Integration**: Pi Network SDK
-- **Charts**: Recharts
-- **Toast Notifications**: Sonner
+- **الواجهة الأمامية**: React, TypeScript, Vite
+- **التنسيق**: Tailwind CSS, shadcn/ui
+- **إدارة الحالة**: React Context API, TanStack Query
+- **التوجيه**: React Router
+- **تكامل الخلفية**: Supabase
+- **دعم الجوال**: Capacitor
+- **تكامل المدفوعات**: Pi Network SDK
+- **الرسوم البيانية**: Recharts
+- **إشعارات Toast**: Sonner
 
-## Development Setup
+## إعداد بيئة التطوير
 
-### Prerequisites
+### المتطلبات الأساسية
 - Node.js (v16+)
-- npm or bun
+- npm أو bun
 - Git
 
-### Installation
+### التثبيت
 
 ```bash
-# Clone the repository
-git clone <YOUR_GIT_URL>
+# استنساخ المستودع
+git clone <رابط_المستودع_الخاص_بك>
 
-# Navigate to the project directory
-cd <YOUR_PROJECT_NAME>
+# الانتقال إلى مجلد المشروع
+cd <اسم_المشروع_الخاص_بك>
 
-# Install dependencies
+# تثبيت التبعيات
 npm install
-# OR using bun
+# أو باستخدام bun
 bun install
 
-# Start the development server
+# بدء خادم التطوير
 npm run dev
-# OR using bun
+# أو باستخدام bun
 bun dev
 ```
 
-The application will be available at http://localhost:5173 by default.
+سيكون التطبيق متاحًا على العنوان http://localhost:5173 افتراضيًا.
 
-## Build and Deployment
+## البناء والنشر
 
-### Development Build
+### بناء لبيئة التطوير
 ```bash
 npm run build:dev
-# OR 
+# أو 
 bun run build:dev
 ```
 
-### Production Build
+### بناء للإنتاج
 ```bash
 npm run build
-# OR
+# أو
 bun run build
 ```
 
-### Preview Production Build
+### معاينة بناء الإنتاج
 ```bash
 npm run preview
-# OR
+# أو
 bun run preview
 ```
 
-## Deployment Options
+## خيارات النشر
 
-1. **Lovable Platform**: Click on Share -> Publish from the Lovable interface
-2. **Custom Domain**: Connect your domain via Project > Settings > Domains
-3. **Vercel/Netlify**: Deploy using the included configuration files
+1. **منصة Lovable**: انقر على مشاركة -> نشر من واجهة Lovable
+2. **نطاق مخصص**: قم بتوصيل نطاقك من خلال المشروع > الإعدادات > النطاقات
+3. **Vercel/Netlify**: نشر باستخدام ملفات التكوين المضمنة
 
-## Integration with Pi Network
+## التكامل مع شبكة Pi
 
-This application is integrated with the Pi Network SDK to enable payments using Pi cryptocurrency.
+هذا التطبيق متكامل مع SDK شبكة Pi لتمكين المدفوعات باستخدام عملة Pi المشفرة.
 
-### Pi Network SDK Setup
-1. Create a Pi App in the Pi Developer Portal
-2. Configure the Pi App credentials in `src/config/piNetwork.ts`
-3. Implement the authentication and payment flows
+### إعداد SDK شبكة Pi
+1. قم بإنشاء تطبيق Pi في بوابة مطوري Pi
+2. قم بتكوين بيانات اعتماد تطبيق Pi في `src/config/piNetwork.ts`
+3. قم بتنفيذ تدفقات المصادقة والدفع
 
-## Custom Domain Setup
+يمكنك العثور على التوثيق الكامل لـ SDK Pi في [مستودع توثيق منصة Pi](https://github.com/pi-apps/pi-platform-docs).
 
-To connect a custom domain to your Lovable project:
-1. Navigate to Project > Settings > Domains
-2. Click Connect Domain
-3. Follow the instructions to update DNS records
+## إعداد تكامل Supabase
 
-For more details, see: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+للاتصال بقاعدة بيانات Supabase:
 
-## Contributing
+1. قم بإنشاء حساب على [Supabase](https://supabase.com) وأنشئ مشروعًا جديدًا
+2. احصل على عنوان URL الخاص بالمشروع ومفتاح API المجهول من لوحة تحكم Supabase
+3. أضف المتغيرات البيئية إلى ملف `.env` في جذر المشروع:
 
-1. Fork the repository
-2. Create your feature branch: `git checkout -b feature/amazing-feature`
-3. Commit your changes: `git commit -m 'Add some amazing feature'`
-4. Push to the branch: `git push origin feature/amazing-feature`
-5. Open a Pull Request
+```
+VITE_SUPABASE_URL=https://<your-project-id>.supabase.co
+VITE_SUPABASE_ANON_KEY=<your-anon-key>
+```
 
-## License
+عرِّف الاتصال بقاعدة البيانات وأي جداول ضرورية باستخدام واجهة Supabase.
+معرف مشروع Supabase الحالي: `ntrivhnvoktbgyskfhfl`
 
-This project is licensed under the MIT License.
+## إعداد النطاق المخصص
+
+لتوصيل نطاق مخصص بمشروع Lovable الخاص بك:
+1. انتقل إلى المشروع > الإعدادات > النطاقات
+2. انقر على توصيل نطاق
+3. اتبع التعليمات لتحديث سجلات DNS
+
+للمزيد من التفاصيل، راجع: [إعداد نطاق مخصص](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+
+## المساهمة
+
+1. قم بعمل fork للمستودع
+2. قم بإنشاء فرع لميزتك: `git checkout -b ميزة/ميزة-رائعة`
+3. قم بتأكيد التغييرات: `git commit -m 'إضافة بعض الميزات الرائعة'`
+4. ادفع إلى الفرع: `git push origin ميزة/ميزة-رائعة`
+5. قم بفتح طلب سحب
+
+## الترخيص
+
+هذا المشروع مرخص بموجب ترخيص MIT.

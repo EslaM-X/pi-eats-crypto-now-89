@@ -1,14 +1,181 @@
 
-# Frontend
+# PiEat-Me Frontend
 
-This directory contains all frontend-related code, components, and UI logic.
+هذا الدليل يحتوي على كل ما يتعلق بالواجهة الأمامية للتطبيق، والمكونات، ومنطق واجهة المستخدم.
 
-## Structure
-- `components/`: React components
-- `pages/`: Page components
-- `hooks/`: Custom React hooks
-- `contexts/`: React context providers
-- `styles/`: CSS and styling files
-- `utils/`: Frontend utility functions
-- `types/`: Frontend type definitions
+## هيكل المشروع
+- `components/`: مكونات React
+- `pages/`: مكونات الصفحات
+- `hooks/`: هوكس React مخصصة
+- `contexts/`: مزودي سياق React
+- `styles/`: ملفات CSS والتنسيق
+- `utils/`: وظائف مساعدة للواجهة الأمامية
+- `types/`: تعريفات الأنواع للواجهة الأمامية
 
+## خريطة المشروع بالكامل
+
+```
+PiEat-Me/
+├── public/                   # الملفات الثابتة
+├── src/
+│   ├── backend/              # خدمات الخلفية
+│   │   ├── integrations/     # تكاملات الخدمات الخارجية
+│   │   ├── services/         # خدمات API
+│   │   └── README.md         # توثيق الخلفية
+│   │
+│   ├── components/           # مكونات UI قابلة لإعادة الاستخدام
+│   │   ├── cart/             # مكونات متعلقة بسلة التسوق
+│   │   ├── food-provider/    # مكونات مزودي الطعام
+│   │   ├── header/           # مكونات الترويسة
+│   │   ├── home/             # مكونات الصفحة الرئيسية
+│   │   ├── mining/           # مكونات ميزة التعدين
+│   │   ├── restaurant/       # مكونات متعلقة بالمطاعم
+│   │   ├── ui/               # مكونات مكتبة واجهة المستخدم (shadcn)
+│   │   └── [مكونات UI متنوعة]
+│   │
+│   ├── config/               # ملفات الإعدادات
+│   │
+│   ├── contexts/             # مزودي سياق React
+│   │   ├── wallet/           # تنفيذ سياق المحفظة
+│   │   │   ├── WalletContext.tsx    # تنفيذ مزود المحفظة
+│   │   │   ├── WalletTypes.ts       # تعريفات أنواع المحفظة
+│   │   │   └── WalletUtils.ts       # وظائف مساعدة للمحفظة
+│   │   ├── homefood/         # سياق الطعام المنزلي
+│   │   ├── language/         # سياق اللغة
+│   │   ├── mining/           # سياق التعدين
+│   │   └── [سياقات أخرى]
+│   │
+│   ├── frontend/             # كود خاص بالواجهة الأمامية
+│   │   ├── components/       # مكونات الواجهة الأمامية فقط
+│   │   ├── hooks/            # هوكس الواجهة الأمامية
+│   │   ├── utils/            # أدوات مساعدة للواجهة الأمامية
+│   │   └── README.md         # توثيق الواجهة الأمامية
+│   │
+│   ├── hooks/                # هوكس React مخصصة
+│   │
+│   ├── integrations/         # تكاملات الطرف الثالث
+│   │   └── supabase/         # تكامل Supabase
+│   │
+│   ├── lib/                  # مكتبات مساعدة
+│   │
+│   ├── locales/              # ملفات الترجمة والتوطين
+│   │
+│   ├── pages/                # صفحات التطبيق
+│   │   ├── Index.tsx         # الصفحة الرئيسية
+│   │   ├── Wallet.tsx        # صفحة المحفظة
+│   │   ├── PiWallet.tsx      # صفحة محفظة Pi
+│   │   ├── HomeFood.tsx      # صفحة الطعام المنزلي
+│   │   ├── Restaurants.tsx   # صفحة المطاعم
+│   │   ├── RestaurantDetails.tsx    # صفحة تفاصيل المطعم
+│   │   └── [صفحات أخرى]
+│   │
+│   ├── services/             # خدمات التطبيق
+│   │
+│   ├── styles/               # أنماط عامة
+│   │
+│   ├── translations/         # ملفات الترجمة
+│   │
+│   ├── types/                # تعريفات أنواع TypeScript
+│   │
+│   ├── utils/                # وظائف مساعدة
+│   │
+│   ├── App.tsx               # مكون التطبيق الرئيسي
+│   ├── App.css               # أنماط التطبيق الرئيسية
+│   ├── index.css             # CSS العام
+│   ├── main.tsx              # نقطة دخول التطبيق
+│   └── vite-env.d.ts         # إعلانات بيئة Vite
+│
+├── capacitor.config.ts       # إعدادات Capacitor (للجوال)
+├── components.json           # إعدادات shadcn/ui
+├── tailwind.config.ts        # إعدادات Tailwind CSS
+├── tsconfig.json             # إعدادات TypeScript
+└── vite.config.ts            # إعدادات Vite
+```
+
+## أوامر التشغيل والربط
+
+### المتطلبات الأساسية
+- Node.js (v16+)
+- npm أو bun
+- Git
+
+### تثبيت التطبيق
+
+```bash
+# استنساخ المستودع
+git clone <رابط_المستودع_الخاص_بك>
+
+# الانتقال إلى مجلد المشروع
+cd <اسم_المشروع_الخاص_بك>
+
+# تثبيت التبعيات
+npm install
+# أو باستخدام bun
+bun install
+
+# بدء خادم التطوير
+npm run dev
+# أو باستخدام bun
+bun dev
+```
+
+سيكون التطبيق متاحًا على العنوان http://localhost:5173 افتراضيًا.
+
+### بناء ونشر التطبيق
+
+#### بناء لبيئة التطوير
+```bash
+npm run build:dev
+# أو 
+bun run build:dev
+```
+
+#### بناء للإنتاج
+```bash
+npm run build
+# أو
+bun run build
+```
+
+#### معاينة بناء الإنتاج
+```bash
+npm run preview
+# أو
+bun run preview
+```
+
+## خيارات النشر
+
+1. **منصة Lovable**: انقر على مشاركة -> نشر من واجهة Lovable
+2. **نطاق مخصص**: قم بتوصيل نطاقك من خلال المشروع > الإعدادات > النطاقات
+3. **Vercel/Netlify**: نشر باستخدام ملفات التكوين المضمنة
+
+## التكامل مع شبكة Pi
+
+يتكامل هذا التطبيق مع SDK شبكة Pi لتمكين المدفوعات باستخدام عملة Pi المشفرة.
+
+### إعداد SDK شبكة Pi
+1. إنشاء تطبيق Pi في بوابة مطوري Pi
+2. تكوين بيانات اعتماد تطبيق Pi في `src/config/piNetwork.ts`
+3. تنفيذ تدفقات المصادقة والدفع
+
+## ربط Supabase
+
+يستخدم المشروع Supabase لإدارة قاعدة البيانات والمصادقة والتخزين. لإعداد Supabase:
+
+1. قم بإنشاء حساب على [Supabase](https://supabase.com) وأنشئ مشروعًا جديدًا
+2. احصل على مفاتيح API وعنوان URL من لوحة إعدادات المشروع
+3. قم بتكوين المتغيرات البيئية في ملف `.env` (قم بإنشاء هذا الملف في جذر المشروع):
+
+```
+VITE_SUPABASE_URL=https://your-project-id.supabase.co
+VITE_SUPABASE_ANON_KEY=your-anon-key
+```
+
+4. يمكنك اختبار الاتصال بالتأكد من أن خدمات Supabase مثل المصادقة تعمل في التطبيق
+
+## ملاحظات إضافية
+
+1. **التصميم المتجاوب**: التطبيق مصمم ليعمل على أجهزة الموبايل وسطح المكتب
+2. **دعم متعدد اللغات**: يدعم اللغتين الإنجليزية والعربية
+3. **نظام المحفظة**: يتضمن نظام محفظة Pi ومحفظة PiEat داخلية
