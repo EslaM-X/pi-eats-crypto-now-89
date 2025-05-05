@@ -19,4 +19,5 @@ export type {
   WalletContextType
 };
 
-export default WalletContext;
+// Export the context as default
+export default WalletProvider;
