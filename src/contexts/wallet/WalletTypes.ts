@@ -13,9 +13,13 @@ export interface Transaction {
   timestamp: Date;
 }
 
+export interface WalletBalance {
+  pi: number;
+  ptm: number;
+}
+
 export interface WalletContextType {
-  balance: number;
-  piBalance: number;
+  balance: WalletBalance;
   transactions: Transaction[];
   piTransactions: Transaction[];
   loading: boolean;
@@ -24,6 +28,7 @@ export interface WalletContextType {
   sendPi: (amount: number, recipient: string, memo?: string) => Promise<boolean>;
   refreshWallet: () => void;
   refreshPiWallet: () => void;
+  fetchBalance: () => void;
 }
 
 export interface WalletProviderProps {

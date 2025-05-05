@@ -4,7 +4,8 @@ import {
   Transaction, 
   TransactionType, 
   TransactionStatus, 
-  WalletContextType 
+  WalletContextType,
+  WalletBalance
 } from './wallet/WalletTypes';
 
 export { 
@@ -16,7 +17,8 @@ export type {
   Transaction,
   TransactionType,
   TransactionStatus,
-  WalletContextType
+  WalletContextType,
+  WalletBalance
 };
 
 // Export the context as default

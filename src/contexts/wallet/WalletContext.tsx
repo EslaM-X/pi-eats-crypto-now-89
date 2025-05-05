@@ -1,7 +1,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { toast } from 'sonner';
-import { WalletContextType, WalletProviderProps, Transaction } from './WalletTypes';
+import { WalletContextType, WalletProviderProps, Transaction, WalletBalance } from './WalletTypes';
 import { generateMockTransactions, createTransaction } from './WalletUtils';
 
 // Create the context with a default undefined value
@@ -20,8 +20,7 @@ export const useWallet = (): WalletContextType => {
 
 // Provider component
 export const WalletProvider: React.FC<WalletProviderProps> = ({ children }) => {
-  const [balance, setBalance] = useState<number>(0);
-  const [piBalance, setPiBalance] = useState<number>(0);
+  const [balance, setBalance] = useState<WalletBalance>({ pi: 0, ptm: 0 });
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [piTransactions, setPiTransactions] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -49,9 +48,9 @@ export const WalletProvider: React.FC<WalletProviderProps> = ({ children }) => {
       // Update balances
       if (transaction.status === 'completed') {
         if (transaction.type === 'send') {
-          setPiBalance(prev => prev - transaction.amount);
+          setBalance(prev => ({ ...prev, pi: prev.pi - transaction.amount }));
         } else {
-          setPiBalance(prev => prev + transaction.amount);
+          setBalance(prev => ({ ...prev, pi: prev.pi + transaction.amount }));
         }
       }
     } else {
@@ -59,7 +58,7 @@ export const WalletProvider: React.FC<WalletProviderProps> = ({ children }) => {
       
       // Update balance for rewards
       if (transaction.status === 'completed' && transaction.type === 'reward') {
-        setBalance(prev => prev + transaction.amount);
+        setBalance(prev => ({ ...prev, ptm: prev.ptm + transaction.amount }));
       }
     }
     
@@ -81,7 +80,7 @@ export const WalletProvider: React.FC<WalletProviderProps> = ({ children }) => {
             return;
           }
           
-          if (amount > piBalance) {
+          if (amount > balance.pi) {
             setError('Insufficient balance');
             setLoading(false);
             resolve(false);
@@ -114,7 +113,8 @@ export const WalletProvider: React.FC<WalletProviderProps> = ({ children }) => {
     setTimeout(() => {
       try {
         // Generate mock PiEat wallet data
-        setBalance(parseFloat((Math.random() * 100 + 10).toFixed(2)));
+        const ptmBalance = parseFloat((Math.random() * 100 + 10).toFixed(2));
+        setBalance(prev => ({ ...prev, ptm: ptmBalance }));
         setTransactions(generateMockTransactions(15));
         setLoading(false);
       } catch (e: any) {
@@ -131,7 +131,8 @@ export const WalletProvider: React.FC<WalletProviderProps> = ({ children }) => {
     setTimeout(() => {
       try {
         // Generate mock Pi wallet data
-        setPiBalance(parseFloat((Math.random() * 100 + 25).toFixed(2)));
+        const piBalance = parseFloat((Math.random() * 100 + 25).toFixed(2));
+        setBalance(prev => ({ ...prev, pi: piBalance }));
         setPiTransactions(generateMockTransactions(20));
         setLoading(false);
       } catch (e: any) {
@@ -141,10 +142,15 @@ export const WalletProvider: React.FC<WalletProviderProps> = ({ children }) => {
     }, 800); // Simulate network delay
   };
 
+  // Alias for refreshing both wallets
+  const fetchBalance = () => {
+    refreshWallet();
+    refreshPiWallet();
+  };
+
   // Build the value object for the context provider
   const value: WalletContextType = {
     balance,
-    piBalance,
     transactions,
     piTransactions,
     loading,
@@ -152,7 +158,8 @@ export const WalletProvider: React.FC<WalletProviderProps> = ({ children }) => {
     addTransaction,
     sendPi,
     refreshWallet,
-    refreshPiWallet
+    refreshPiWallet,
+    fetchBalance
   };
 
   // Return the context provider
