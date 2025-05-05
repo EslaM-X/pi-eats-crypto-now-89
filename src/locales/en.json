@@ -1,130 +1,53 @@
 
 {
   "app": {
-    "name": "Pi-Eat",
-    "tagline": "Order Food with Pi"
+    "title": "PiEat-Me",
+    "subtitle": "Order Food with Pi",
+    "installPWA": "Install App",
+    "installed": "App Installed",
+    "offlineMode": "You are currently offline",
+    "update": "Update available"
   },
-  "loading": "Loading...",
   "nav": {
     "home": "Home",
     "restaurants": "Restaurants",
-    "homefood": "HomeFood",
-    "addFood": "Add Food",
-    "orders": "My Orders",
+    "homefood": "Home Food",
+    "addFood": "Sell Food",
+    "orders": "Orders",
     "wallet": "Wallet",
     "rewards": "Rewards"
   },
-  "auth": {
-    "connectWithPi": "Connect with Pi",
-    "login": "Login",
-    "register": "Register",
-    "logout": "Logout",
-    "profile": "Profile",
-    "settings": "Settings",
-    "authorizationRequired": "Authorization required to access this page"
-  },
   "home": {
-    "welcome": "Eat with Pi",
-    "welcomeHighlight": "Use Pi to order food",
-    "subtitle": "The first platform in Egypt for ordering food with Pi cryptocurrency",
-    "orderNow": "Order Now",
-    "joinPiNetwork": "Join Pi Network",
-    "featured": "Featured Restaurants",
-    "categories": "Browse by Category",
-    "homemade": "Homemade Food",
-    "viewAll": "View All"
-  },
-  "restaurants": {
-    "title": "Restaurants",
-    "subtitle": "Discover the best restaurants",
-    "searchPlaceholder": "Search for a restaurant..."
-  },
-  "food": {
-    "addToCart": "Add to Cart",
-    "viewMenu": "View Menu",
-    "popular": "Popular",
-    "discount": "{percent}% OFF",
-    "emptyMenu": "Menu is empty",
-    "addReview": "Add Review"
-  },
-  "homefood": {
-    "title": "HomeFood",
-    "subtitle": "Discover the best homemade food",
-    "add": {
-      "title": "Add Home Food",
-      "subtitle": "Sell your homemade food and earn Pi",
-      "name": "Food Name",
-      "description": "Description",
-      "price": "Price",
-      "image": "Food Image",
-      "category": "Category",
-      "submit": "Submit"
-    }
-  },
-  "cart": {
-    "title": "Shopping Cart",
-    "empty": "Your cart is empty",
-    "continueToCheckout": "Continue to Checkout",
-    "total": "Total:",
-    "removeItem": "Remove"
+    "featured": "Featured",
+    "welcome": "Welcome to PiEat",
+    "subtitle": "Order food with Pi cryptocurrency",
+    "exploreRestaurants": "Explore Restaurants",
+    "exploreHomeFood": "Explore Home Food",
+    "learnMore": "Learn More"
   },
   "wallet": {
-    "title": "Wallet",
+    "title": "My Wallets",
     "balance": "Balance",
-    "transaction": "Transactions",
+    "piWallet": "Pi Wallet",
+    "piEatWallet": "PiEat Wallet",
+    "transactions": "Transactions",
     "send": "Send",
     "receive": "Receive",
     "refresh": "Refresh",
-    "lastUpdated": "Last Updated",
-    "amountPi": "Amount (Pi)",
-    "recipient": "Recipient",
-    "message": "Message",
-    "sendPi": "Send Pi",
-    "receivePi": "Receive Pi",
-    "piAddress": "Your Pi Address",
-    "sendAgain": "Send Again"
+    "connect": "Connect",
+    "lastUpdated": "Last Updated"
   },
-  "orders": {
-    "title": "My Orders",
-    "empty": "No orders found",
-    "status": {
-      "pending": "Pending",
-      "processing": "Processing",
-      "shipped": "Shipped",
-      "delivered": "Delivered",
-      "cancelled": "Cancelled"
-    },
-    "order": "Order",
-    "date": "Date",
-    "total": "Total",
-    "status": "Status",
-    "actions": "Actions",
-    "viewDetails": "View Details",
-    "cancel": "Cancel Order",
-    "noOrders": "No Orders"
+  "cart": {
+    "empty": "Your cart is empty",
+    "startAdding": "Start adding items to your cart",
+    "browseRestaurants": "Browse Restaurants",
+    "exploreHomeFood": "Explore Home Food"
   },
-  "rewards": {
-    "title": "Rewards",
-    "subtitle": "Earn and redeem reward points",
-    "points": "Your Points",
-    "availableRewards": "Available Rewards",
-    "pointsNeeded": "Points Needed",
-    "redeem": "Redeem",
-    "history": "Rewards History",
-    "earnedOn": "Earned on",
-    "noRewards": "No rewards"
-  },
-  "theme": {
-    "light": "Light Mode",
-    "dark": "Dark Mode"
+  "food": {
+    "addToCart": "Add to Cart"
   },
   "pi": {
-    "viewOnOKX": "View on OKX"
+    "viewOnOKX": "View Pi on OKX"
   },
-  "error": {
-    "404": "Page not found",
-    "goBack": "Go back home",
-    "generalError": "Something went wrong",
-    "tryAgain": "Try again"
-  }
+  "loading": "Loading..."
 }

@@ -1,256 +1,53 @@
 
 {
   "app": {
-    "name": "بـِإيت",
-    "tagline": "اطلب الطعام بعملة باي"
+    "title": "بإيت",
+    "subtitle": "اطلب الطعام باستخدام باي",
+    "installPWA": "تثبيت التطبيق",
+    "installed": "تم تثبيت التطبيق",
+    "offlineMode": "أنت حاليا غير متصل بالإنترنت",
+    "update": "تحديث متاح"
   },
-  "loading": "جاري التحميل...",
   "nav": {
     "home": "الرئيسية",
     "restaurants": "المطاعم",
-    "homefood": "الطعام المنزلي",
-    "addFood": "إضافة طعام",
-    "orders": "طلباتي",
+    "homefood": "طعام منزلي",
+    "addFood": "بيع الطعام",
+    "orders": "الطلبات",
     "wallet": "المحفظة",
-    "rewards": "المكافآت",
-    "mining": "التعدين"
-  },
-  "auth": {
-    "connectWithPi": "تسجيل الدخول باستخدام باي",
-    "login": "تسجيل الدخول",
-    "register": "إنشاء حساب",
-    "logout": "تسجيل الخروج",
-    "profile": "الملف الشخصي",
-    "settings": "الإعدادات",
-    "authorizationRequired": "يجب تسجيل الدخول للوصول لهذه الصفحة"
+    "rewards": "المكافآت"
   },
   "home": {
-    "welcome": "أطعم بايك",
-    "welcomeHighlight": "اطلب طعامك بعملة باي",
-    "subtitle": "المنصة الأولى في مصر لطلب الطعام باستخدام عملة باي المشفرة",
-    "orderNow": "اطلب الآن",
-    "joinPiNetwork": "انضم لشبكة باي",
-    "featured": "المطاعم المميزة",
-    "categories": "تصفح حسب التصنيف",
-    "homemade": "الأطعمة المنزلية",
-    "homefood": "الطعام المنزلي القريب منك",
-    "viewAll": "عرض الكل",
-    "addListing": "أضف طعامك المنزلي",
-    "howItWorks": "كيف يعمل"
-  },
-  "howItWorks": {
-    "title": "كيف يعمل",
-    "subtitle": "اطلب الطعام وادفع بعملة باي المشفرة في خطوات سهلة",
-    "steps": {
-      "step1": {
-        "title": "تصفح واطلب",
-        "description": "ابحث عن المطاعم أو الطهاة المنزليين القريبين منك واطلب وجباتك المفضلة"
-      },
-      "step2": {
-        "title": "ادفع بعملة باي",
-        "description": "ادفع بأمان باستخدام عملة باي المشفرة، بدون رسوم معاملات"
-      },
-      "step3": {
-        "title": "احصل على التوصيل",
-        "description": "استمتع بتوصيل سريع مباشرة إلى باب منزلك"
-      },
-      "step4": {
-        "title": "اكسب المكافآت",
-        "description": "احصل على رموز PTM وخصومات على طلباتك وتقييماتك"
-      }
-    }
-  },
-  "restaurants": {
-    "title": "المطاعم",
-    "subtitle": "اكتشف أفضل المطاعم",
-    "searchPlaceholder": "ابحث عن مطعم..."
-  },
-  "food": {
-    "addToCart": "أضف إلى السلة",
-    "viewMenu": "عرض القائمة",
-    "popular": "الأكثر طلباً",
-    "discount": "خصم {percent}%",
-    "emptyMenu": "قائمة الطعام فارغة",
-    "addReview": "أضف تقييم"
-  },
-  "homefood": {
-    "title": "الطعام المنزلي",
-    "subtitle": "اكتشف أفضل الأكلات المنزلية",
-    "add": {
-      "title": "إضافة طعام منزلي",
-      "subtitle": "قم ببيع طعامك المنزلي وكسب عملة باي",
-      "name": "اسم الطعام",
-      "description": "وصف الطعام",
-      "price": "السعر",
-      "image": "صورة الطعام",
-      "category": "التصنيف",
-      "submit": "نشر"
-    },
-    "explore": "استكشف الطعام المنزلي بالقرب منك",
-    "addListing": "إضافة طعامك المنزلي",
-    "homeCooking": "الطعام المنزلي",
-    "smallRestaurants": "المطاعم الصغيرة",
-    "allListings": "جميع القوائم",
-    "search": "ابحث عن اسم أو وصف أو نوع الطعام...",
-    "filters": "تصفية",
-    "cuisine": "نوع المطبخ",
-    "location": "الموقع",
-    "rating": "التقييم",
-    "noListings": "لا توجد قوائم طعام تطابق معايير البحث.",
-    "addYourListing": "أضف قائمتك"
-  },
-  "cart": {
-    "title": "سلة التسوق",
-    "empty": "سلة التسوق فارغة",
-    "continueToCheckout": "متابعة للدفع",
-    "total": "المجموع:",
-    "removeItem": "إزالة"
+    "featured": "مميز",
+    "welcome": "مرحبا بك في بإيت",
+    "subtitle": "اطلب الطعام باستخدام عملة باي المشفرة",
+    "exploreRestaurants": "استكشف المطاعم",
+    "exploreHomeFood": "استكشف الطعام المنزلي",
+    "learnMore": "اعرف المزيد"
   },
   "wallet": {
-    "title": "إدارة المحفظة",
+    "title": "محافظي",
     "balance": "الرصيد",
-    "transaction": "المعاملات",
+    "piWallet": "محفظة باي",
+    "piEatWallet": "محفظة بإيت",
     "transactions": "المعاملات",
     "send": "إرسال",
     "receive": "استلام",
     "refresh": "تحديث",
-    "lastUpdated": "آخر تحديث",
-    "amountPi": "المبلغ (باي)",
-    "recipient": "المستلم",
-    "message": "رسالة",
-    "sendPi": "إرسال باي",
-    "receivePi": "استلام باي",
-    "piAddress": "عنوان باي الخاص بك",
-    "sendAgain": "إرسال مرة أخرى",
-    "piNetwork": "محفظة شبكة باي (π)",
-    "piEat": "رصيد بِإيت (PTM)",
-    "topUp": "شحن الرصيد",
-    "swap": "تبديل",
-    "manage": "إدارة",
-    "totalBalance": "الرصيد الإجمالي",
-    "totalUsd": "المجموع بالدولار",
-    "totalEgp": "المجموع بالجنيه المصري",
-    "quickOptions": "خيارات سريعة",
-    "mine": "تعدين",
-    "aboutPTM": "حول رموز PTM",
-    "ptmDescription": "رموز PTM هي عملة مكافآت داخلية تستخدم في تطبيق بِإيت. يمكنك كسبها عن طريق التعدين واستخدامها للحصول على خصومات ومزايا حصرية.",
-    "learnMore": "معرفة المزيد",
-    "estimatedValue": "القيمة التقديرية",
-    "connect": "اتصال"
+    "connect": "اتصال",
+    "lastUpdated": "آخر تحديث"
   },
-  "orders": {
-    "title": "طلباتي",
-    "empty": "لا يوجد طلبات",
-    "status": {
-      "pending": "قيد الانتظار",
-      "processing": "قيد المعالجة",
-      "shipped": "تم الشحن",
-      "delivered": "تم التوصيل",
-      "cancelled": "ملغي"
-    },
-    "order": "طلب",
-    "date": "التاريخ",
-    "total": "المجموع",
-    "status": "الحالة",
-    "actions": "الإجراءات",
-    "viewDetails": "عرض التفاصيل",
-    "cancel": "إلغاء الطلب",
-    "noOrders": "لا توجد طلبات"
+  "cart": {
+    "empty": "سلة التسوق فارغة",
+    "startAdding": "ابدأ بإضافة عناصر إلى سلة التسوق",
+    "browseRestaurants": "تصفح المطاعم",
+    "exploreHomeFood": "استكشف الطعام المنزلي"
   },
-  "rewards": {
-    "title": "المكافآت",
-    "description": "اكسب واستبدل النقاط للحصول على خصومات ومكافآت حصرية",
-    "points": "نقاط",
-    "available": "المكافآت المتاحة",
-    "pointsNeeded": "النقاط المطلوبة",
-    "redeem": "استبدال",
-    "history": "سجل المكافآت",
-    "earnedOn": "اكتسبت في",
-    "noRewards": "لا توجد مكافآت",
-    "piEat": "مكافآت بِإيت",
-    "earnWithPiEat": "اكسب النقاط مع كل طلب واستبدلها بمكافآت",
-    "yourPoints": "نقاطك",
-    "tiers": "مستويات المكافآت",
-    "bronze": "المستوى البرونزي",
-    "silver": "المستوى الفضي",
-    "gold": "المستوى الذهبي",
-    "notEnoughPoints": "ليس لديك نقاط كافية",
-    "redeemSuccess": "تم استبدال المكافأة بنجاح",
-    "subtitle": "اكسب واستبدل نقاط المكافآت",
-    "tier": {
-      "discount": "خصم",
-      "points": "مضاعفة النقاط",
-      "freeDelivery": "توصيل مجاني",
-      "exclusiveOffers": "عروض حصرية"
-    }
-  },
-  "mining": {
-    "title": "تعدين باي",
-    "subtitle": "قم بتعدين رموز بِإيت (PTM) للحصول على مكافآت حصرية",
-    "button": "تعدين",
-    "nextSession": "الجلسة القادمة",
-    "lastSession": "آخر جلسة",
-    "miningSuccess": "تم التعدين بنجاح!",
-    "points": "نقطة",
-    "hours": "ساعة",
-    "minutes": "دقيقة",
-    "seconds": "ثانية",
-    "startMining": "ابدأ التعدين الآن",
-    "miningInProgress": "جاري التعدين...",
-    "connectWallet": "قم بتوصيل المحفظة أولاً",
-    "yourBalance": "رصيد PTM الخاص بك",
-    "totalMined": "إجمالي التعدين",
-    "miningPower": "قوة التعدين",
-    "networkDifficulty": "صعوبة الشبكة",
-    "cooldown": "ستتمكن من التعدين مرة أخرى بعد:",
-    "dailyRewards": "المكافآت اليومية",
-    "claim": "استلام المكافأة",
-    "claimed": "تم الاستلام",
-    "howItWorks": "كيف يعمل تعدين PTM",
-    "viewAds": "شاهد إعلانين",
-    "viewAdsDesc": "شاهد إعلانين قصيرين لبدء عملية التعدين",
-    "mineTokens": "تعدين رموز PTM",
-    "mineTokensDesc": "ابدأ التعدين واكسب رموز PTM بناءً على قوة التعدين الخاصة بك",
-    "getRewards": "احصل على المكافآت",
-    "getRewardsDesc": "استخدم رموز PTM للحصول على خصومات ومميزات حصرية",
-    "advertisement": "إعلان",
-    "continue": "متابعة",
-    "adSpace": "مساحة إعلانية",
-    "stats": "إحصائيات التعدين",
-    "dailyReward": "المكافأة اليومية",
-    "monthlyPotential": "المكافأة الشهرية المحتملة",
-    "miningLevel": "مستوى التعدين",
-    "nextLevelBoost": "زيادة المستوى التالي",
-    "miningBonuses": "مكافآت التعدين",
-    "consecutiveDaily": "تعدين يومي متتالي",
-    "weekendBonus": "مكافأة عطلة نهاية الأسبوع",
-    "dailyMiningStatus": "حالة التعدين اليومية",
-    "availableNow": "متاح الآن",
-    "claimDailyTokens": "استلم رموز التعدين اليومية",
-    "loginToMine": "سجل الدخول للتعدين",
-    "nextMiningAvailable": "التعدين التالي متاح:",
-    "alreadyClaimed": "لقد استلمت مكافآت التعدين اليومية بالفعل. عد غدا للتعدين مجدداً.",
-    "lastMiningSession": "آخر جلسة تعدين:",
-    "never": "لم يتم التعدين من قبل",
-    "leaderboard": "لوحة المتصدرين",
-    "mining": "التعدين",
-    "activity": "النشاط",
-    "watchAdToClaim": "شاهد إعلان لاستلام المكافأة",
-    "watchAdContinue": "شاهد إعلاناً للاستمرار",
-    "level": "المستوى",
-    "boost": "تعزيز"
-  },
-  "theme": {
-    "light": "وضع النهار",
-    "dark": "وضع الليل"
+  "food": {
+    "addToCart": "أضف إلى السلة"
   },
   "pi": {
-    "viewOnOKX": "عرض على OKX"
+    "viewOnOKX": "عرض Pi على OKX"
   },
-  "error": {
-    "404": "الصفحة غير موجودة",
-    "goBack": "العودة للصفحة الرئيسية",
-    "generalError": "حدث خطأ ما",
-    "tryAgain": "حاول مرة أخرى"
-  }
+  "loading": "جار التحميل..."
 }
