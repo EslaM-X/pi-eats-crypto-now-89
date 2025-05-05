@@ -8,7 +8,7 @@ import { PaymentProvider } from "./PaymentContext";
 import { CartProvider } from "./CartContext";
 import { HomeFoodProvider } from "./homefood/HomeFoodContext";
 import { OrdersProvider } from "./OrdersContext";
-import { WalletProvider } from "./WalletContext";
+import { WalletProvider } from "./wallet/WalletContext";
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
   return (
