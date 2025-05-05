@@ -25,8 +25,12 @@ import { PiPriceIndicator } from '@/components/PiPriceIndicator';
 
 const AdminHeader = () => {
   const { theme, setTheme } = useTheme();
-  const { t, language, toggleLanguage } = useLanguage();
+  const { t, language, setLanguage } = useLanguage();
   const { user, logout } = usePiAuth();
+  
+  const toggleLanguage = () => {
+    setLanguage(language === 'ar' ? 'en' : 'ar');
+  };
   
   return (
     <header className="h-16 border-b border-border flex items-center justify-between px-4 bg-background/95 backdrop-blur-sm">

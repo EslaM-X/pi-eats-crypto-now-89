@@ -55,7 +55,7 @@ import {
   Utensils,
   Info
 } from 'lucide-react';
-import AdPlaceholder from '@/components/mining/AdPlaceholder';
+import AdPlaceholder from '@/components/ui/ad-placeholder';
 
 // Define form validation schema
 const formSchema = z.object({
@@ -624,7 +624,7 @@ const AddFoodListing = () => {
                   <h4 className="font-semibold">{language === 'ar' ? 'صور جذابة' : 'Attractive Images'}</h4>
                   <p className="text-sm text-muted-foreground">
                     {language === 'ar' 
-                      ? 'استخدم صوراً عالية الجودة لأطباقك. الصور الجيدة تزيد من فرص المبيعات.' 
+                      ? 'استخ��م صوراً عالية الجودة لأطباقك. الصور الجيدة تزيد من فرص المبيعات.' 
                       : 'Use high-quality images of your dishes. Good photos increase sales chances.'}
                   </p>
                 </div>
