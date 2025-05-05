@@ -7,13 +7,15 @@ interface AdPlaceholderProps {
   height?: string;
   variant?: 'horizontal' | 'vertical' | 'square';
   className?: string;
+  text?: string;  // إضافة خاصية النص
 }
 
 const AdPlaceholder = ({
   width = '300px',
   height = '250px',
   variant = 'square',
-  className
+  className,
+  text = 'Advertisement'  // قيمة افتراضية للنص
 }: AdPlaceholderProps) => {
   return (
     <div 
@@ -24,7 +26,7 @@ const AdPlaceholder = ({
       style={{ width, height }}
     >
       <p className="text-muted-foreground/70 font-medium">
-        Advertisement
+        {text}
       </p>
     </div>
   );
