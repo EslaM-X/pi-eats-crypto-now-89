@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import RestaurantCard from '../RestaurantCard';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { SectionTitle } from '@/components/ui/section-title';
+import { motion } from 'framer-motion';
 
 // Mock featured restaurants data
 const featuredRestaurants = [
@@ -15,7 +17,7 @@ const featuredRestaurants = [
     cuisine: 'Pizza, Italian',
     rating: 4.7,
     deliveryTime: '20-30 min',
-    priceRange: '$',
+    priceRange: 'π 10-15',
     featured: true
   },
   {
@@ -25,7 +27,7 @@ const featuredRestaurants = [
     cuisine: 'Middle Eastern',
     rating: 4.5,
     deliveryTime: '25-40 min',
-    priceRange: '$$',
+    priceRange: 'π 15-25',
     featured: true
   },
   {
@@ -35,7 +37,7 @@ const featuredRestaurants = [
     cuisine: 'Japanese, Sushi',
     rating: 4.8,
     deliveryTime: '30-45 min',
-    priceRange: '$$$',
+    priceRange: 'π 20-35',
     featured: true
   }
 ];
@@ -46,11 +48,10 @@ const FeaturedRestaurants = () => {
   return (
     <section className="py-14">
       <div className="flex flex-col md:flex-row md:items-center justify-between mb-8">
-        <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-0">
-          <span className="bg-gradient-to-r from-pi to-orange bg-clip-text text-transparent">
-            {t('home.featured')}
-          </span>
-        </h2>
+        <SectionTitle 
+          title={t('home.featured')}
+          className="md:mb-0"
+        />
         <Button variant="ghost" size="sm" asChild className="self-start md:self-auto">
           <Link to="/restaurants" className="flex items-center group">
             {t('home.viewAll')}
@@ -60,8 +61,16 @@ const FeaturedRestaurants = () => {
       </div>
       
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-        {featuredRestaurants.map((restaurant) => (
-          <RestaurantCard key={restaurant.id} {...restaurant} />
+        {featuredRestaurants.map((restaurant, index) => (
+          <motion.div
+            key={restaurant.id}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.3, delay: index * 0.1 }}
+          >
+            <RestaurantCard {...restaurant} />
+          </motion.div>
         ))}
       </div>
     </section>

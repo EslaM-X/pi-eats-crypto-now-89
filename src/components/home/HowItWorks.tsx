@@ -5,6 +5,8 @@ import { ShoppingCart, CreditCard, Truck, Star } from 'lucide-react';
 import { useTheme } from '@/contexts/ThemeContext';
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { Container } from '@/components/ui/container';
+import { SectionTitle } from '@/components/ui/section-title';
 
 const HowItWorks = () => {
   const { theme } = useTheme();
@@ -34,33 +36,51 @@ const HowItWorks = () => {
   ];
   
   return (
-    <section className={`py-16 ${theme === 'dark' ? 'bg-muted/20' : 'bg-muted/30'} rounded-3xl my-10`}>
-      <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 text-center">
-        <span className="bg-gradient-to-r from-pi to-orange bg-clip-text text-transparent">
-          {language === 'ar' ? t('home.howItWorks') : 'How It Works'}
-        </span>
-      </h2>
-      <p className="text-muted-foreground mb-12 text-center max-w-2xl mx-auto text-lg">
-        {language === 'ar' ? t('howItWorks.subtitle') : 'Order food and pay with Pi cryptocurrency in just a few easy steps'}
-      </p>
-      
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-        {steps.map((step, index) => (
-          <Card key={index} className="relative border border-muted hover:border-pi/30 transition-colors duration-300 hover:shadow-md overflow-hidden group">
-            <div className="absolute -top-8 -left-8 w-16 h-16 bg-gradient-to-br from-pi to-orange rounded-full opacity-10 group-hover:opacity-20 transition-opacity duration-300" />
-            <span className="absolute -top-4 -left-4 w-8 h-8 rounded-full bg-gradient-to-r from-pi to-orange text-white flex items-center justify-center font-bold shadow-lg">
-              {index + 1}
-            </span>
-            <CardHeader>
-              <div className="flex justify-center text-pi group-hover:scale-110 transition-transform duration-300">{step.icon}</div>
-              <CardTitle className="text-center mt-2 text-xl">{step.title}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className={`text-center text-muted-foreground ${language === 'ar' ? 'arabic-text' : ''}`}>{step.description}</p>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+    <section className={`py-16 ${theme === 'dark' ? 'bg-muted/20' : 'bg-gradient-to-br from-muted/30 to-orange/5'} rounded-t-[3rem] md:rounded-t-[5rem] my-10 overflow-hidden relative`}>
+      <Container>
+        {/* Decorative elements */}
+        <div className="absolute top-20 left-10 w-24 h-24 bg-pi/10 rounded-full blur-xl"></div>
+        <div className="absolute bottom-10 right-10 w-32 h-32 bg-orange/10 rounded-full blur-xl"></div>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="relative z-10"
+        >
+          <SectionTitle
+            title={language === 'ar' ? t('home.howItWorks') : 'How It Works'}
+            subtitle={language === 'ar' ? t('howItWorks.subtitle') : 'Order food and pay with Pi cryptocurrency in just a few easy steps'}
+            centered
+          />
+        </motion.div>
+        
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 relative z-10">
+          {steps.map((step, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3, delay: index * 0.1 }}
+            >
+              <Card className="relative border border-muted hover:border-pi/30 transition-colors duration-300 hover:shadow-md overflow-hidden group h-full">
+                <div className="absolute -top-8 -left-8 w-16 h-16 bg-gradient-to-br from-pi to-orange rounded-full opacity-10 group-hover:opacity-20 transition-opacity duration-300" />
+                <span className="absolute -top-4 -left-4 w-8 h-8 rounded-full bg-gradient-to-r from-pi to-orange text-white flex items-center justify-center font-bold shadow-lg">
+                  {index + 1}
+                </span>
+                <CardHeader>
+                  <div className="flex justify-center text-pi group-hover:scale-110 transition-transform duration-300">{step.icon}</div>
+                  <CardTitle className="text-center mt-2 text-xl">{step.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className={`text-center text-muted-foreground ${language === 'ar' ? 'arabic-text' : ''}`}>{step.description}</p>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
+        </div>
+      </Container>
     </section>
   );
 };
