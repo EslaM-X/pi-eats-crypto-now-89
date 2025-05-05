@@ -14,7 +14,9 @@ export const enTranslations = {
     featured: 'Featured Restaurants',
     viewAll: 'View All',
     readyToStart: 'Ready to Get Started?',
-    futureOfDelivery: 'Explore restaurants or homemade food and pay with Pi cryptocurrency. The future of food delivery is here!'
+    futureOfDelivery: 'Explore restaurants or homemade food and pay with Pi cryptocurrency. The future of food delivery is here!',
+    exploreRestaurants: 'Explore Restaurants',
+    exploreHomeFood: 'Explore Home Food'
   },
   nav: {
     home: 'Home',
@@ -29,7 +31,8 @@ export const enTranslations = {
   auth: {
     login: 'Login',
     logout: 'Logout',
-    connectWithPi: 'Login with Pi'
+    connectWithPi: 'Login with Pi',
+    signup: 'Sign Up'
   },
   food: {
     addToCart: 'Add to Cart',
@@ -40,7 +43,8 @@ export const enTranslations = {
     rating: 'Rating',
     delivery: 'Delivery Time',
     menu: 'Menu',
-    reviews: 'Reviews'
+    reviews: 'Reviews',
+    customize: 'Customize'
   },
   cart: {
     title: 'Shopping Cart',
@@ -49,11 +53,15 @@ export const enTranslations = {
     checkout: 'Checkout',
     viewCart: 'View Cart',
     continueShopping: 'Continue Shopping',
-    items: 'Items'
+    items: 'Items',
+    startAdding: 'Start adding items to your cart',
+    browseRestaurants: 'Browse Restaurants',
+    exploreHomeFood: 'Explore Home Food'
   },
   pi: {
     viewOnOKX: 'View on OKX',
-    currentPrice: 'Current Pi Price'
+    currentPrice: 'Current Pi Price',
+    lastUpdated: 'Last updated'
   },
   wallet: {
     refresh: 'Refresh',
@@ -73,7 +81,14 @@ export const enTranslations = {
     aboutPTM: 'About PTM Tokens',
     ptmDescription: 'PTM tokens are an internal reward currency used within the PiEat app. You can earn them by mining and use them for discounts and exclusive perks.',
     learnMore: 'Learn More',
-    estimatedValue: 'Estimated Value'
+    estimatedValue: 'Estimated Value',
+    title: 'My Wallets',
+    piWallet: 'Pi Wallet',
+    piEatWallet: 'PiEat Wallet',
+    history: 'History',
+    piEat: 'PiEat Balance',
+    piNetwork: 'Pi Network Wallet',
+    connect: 'Connect Pi Browser'
   },
   theme: {
     dark: 'Dark Mode',
@@ -85,7 +100,9 @@ export const enTranslations = {
     filters: 'Filters',
     rating: 'Rating',
     cuisine: 'Cuisine Type',
-    location: 'Location'
+    location: 'Location',
+    price: 'Price',
+    distance: 'Distance'
   },
   orders: {
     track: 'Track your orders and order history',
@@ -100,6 +117,7 @@ export const enTranslations = {
     delivering: 'Delivering',
     delivered: 'Delivered',
     cancelled: 'Cancelled',
+    ready: 'Ready for Pickup',
     id: 'Order ID',
     date: 'Date',
     status: 'Status',
@@ -154,7 +172,12 @@ export const enTranslations = {
     getRewardsDesc: 'Use PTM tokens for discounts and exclusive features',
     advertisement: 'Advertisement',
     continue: 'Continue',
-    adSpace: 'Advertisement Space'
+    adSpace: 'Advertisement Space',
+    leaderboard: 'Leaderboard',
+    rank: 'Rank',
+    username: 'Username',
+    mined: 'Mined',
+    activity: 'Activity'
   },
   features: {
     restaurantDelivery: 'Restaurant Delivery',
@@ -163,5 +186,18 @@ export const enTranslations = {
     homeCookedDesc: 'Discover and order authentic home-cooked meals from local chefs',
     piPayments: 'Pi Payments',
     piPaymentsDesc: 'Pay seamlessly with Pi cryptocurrency for all your food orders'
+  },
+  error: 'Something went wrong',
+  success: 'Success!',
+  tagline: {
+    subtitle: 'Let the journey of delicious food begin!'
+  },
+  retry: 'Retry',
+  cancel: 'Cancel',
+  confirm: 'Confirm',
+  error: {
+    pageNotFound: 'Page Not Found',
+    pageDoesNotExist: 'The page you are looking for does not exist.',
+    backToHome: 'Back to Home'
   }
 };

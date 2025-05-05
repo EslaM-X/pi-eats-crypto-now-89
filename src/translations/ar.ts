@@ -14,7 +14,9 @@ export const arTranslations = {
     featured: 'مطاعم مميزة',
     viewAll: 'عرض الكل',
     readyToStart: 'هل أنت جاهز للبدء؟',
-    futureOfDelivery: 'استكشف المطاعم أو الطعام المنزلي وادفع بعملة باي المشفرة. مستقبل توصيل الطعام هنا!'
+    futureOfDelivery: 'استكشف المطاعم أو الطعام المنزلي وادفع بعملة باي المشفرة. مستقبل توصيل الطعام هنا!',
+    exploreRestaurants: 'استكشف المطاعم',
+    exploreHomeFood: 'استكشف الطعام المنزلي'
   },
   nav: {
     home: 'الرئيسية',
@@ -29,7 +31,8 @@ export const arTranslations = {
   auth: {
     login: 'تسجيل الدخول',
     logout: 'تسجيل الخروج',
-    connectWithPi: 'تسجيل الدخول بـ Pi'
+    connectWithPi: 'تسجيل الدخول بـ Pi',
+    signup: 'إنشاء حساب'
   },
   food: {
     addToCart: 'أضف إلى السلة',
@@ -40,7 +43,8 @@ export const arTranslations = {
     rating: 'التقييم',
     delivery: 'وقت التوصيل',
     menu: 'القائمة',
-    reviews: 'التقييمات'
+    reviews: 'التقييمات',
+    customize: 'تخصيص'
   },
   cart: {
     title: 'سلة التسوق',
@@ -49,11 +53,15 @@ export const arTranslations = {
     checkout: 'إتمام الشراء',
     viewCart: 'عرض السلة',
     continueShopping: 'مواصلة التسوق',
-    items: 'العناصر'
+    items: 'العناصر',
+    startAdding: 'ابدأ بإضافة عناصر إلى سلة التسوق',
+    browseRestaurants: 'تصفح المطاعم',
+    exploreHomeFood: 'استكشف الطعام المنزلي'
   },
   pi: {
     viewOnOKX: 'عرض في منصة OKX',
-    currentPrice: 'سعر Pi الحالي'
+    currentPrice: 'سعر Pi الحالي',
+    lastUpdated: 'آخر تحديث'
   },
   wallet: {
     refresh: 'تحديث',
@@ -73,7 +81,14 @@ export const arTranslations = {
     aboutPTM: 'حول رموز PTM',
     ptmDescription: 'رموز PTM هي عملة مكافآت داخلية تستخدم في تطبيق باي إيت. يمكنك كسبها عن طريق التعدين واستخدامها للحصول على خصومات ومزايا حصرية.',
     learnMore: 'اعرف المزيد',
-    estimatedValue: 'القيمة التقديرية'
+    estimatedValue: 'القيمة التقديرية',
+    title: 'محفظتي',
+    piWallet: 'محفظة باي',
+    piEatWallet: 'محفظة باي إيت',
+    history: 'السجل',
+    piEat: 'رصيد باي إيت',
+    piNetwork: 'محفظة شبكة باي',
+    connect: 'اتصل بمتصفح باي'
   },
   theme: {
     dark: 'الوضع المظلم',
@@ -85,7 +100,9 @@ export const arTranslations = {
     filters: 'تصفية',
     rating: 'التقييم',
     cuisine: 'نوع المأكولات',
-    location: 'الموقع'
+    location: 'الموقع',
+    price: 'السعر',
+    distance: 'المسافة'
   },
   orders: {
     track: 'تتبع طلباتك وتاريخ الطلبات',
@@ -100,6 +117,7 @@ export const arTranslations = {
     delivering: 'قيد التوصيل',
     delivered: 'تم التوصيل',
     cancelled: 'ملغي',
+    ready: 'جاهز للاستلام',
     id: 'رقم الطلب',
     date: 'التاريخ',
     status: 'الحالة',
@@ -154,7 +172,12 @@ export const arTranslations = {
     getRewardsDesc: 'استخدم رموز PTM للحصول على خصومات ومميزات حصرية',
     advertisement: 'إعلان',
     continue: 'متابعة',
-    adSpace: 'مساحة إعلانية'
+    adSpace: 'مساحة إعلانية',
+    leaderboard: 'لوحة المتصدرين',
+    rank: 'المركز',
+    username: 'اسم المستخدم',
+    mined: 'تم تعدينه',
+    activity: 'النشاط'
   },
   features: {
     restaurantDelivery: 'توصيل المطاعم',
@@ -163,5 +186,18 @@ export const arTranslations = {
     homeCookedDesc: 'اكتشف واطلب وجبات منزلية أصيلة من الطهاة المحليين',
     piPayments: 'مدفوعات باي',
     piPaymentsDesc: 'ادفع بسلاسة بعملة باي المشفرة لجميع طلبات الطعام الخاصة بك'
+  },
+  error: 'حدث خطأ',
+  success: 'تم بنجاح!',
+  tagline: {
+    subtitle: 'دع رحلة الطعام اللذيذ تبدأ!'
+  },
+  retry: 'إعادة المحاولة',
+  cancel: 'إلغاء',
+  confirm: 'تأكيد',
+  error: {
+    pageNotFound: 'الصفحة غير موجودة',
+    pageDoesNotExist: 'الصفحة التي تبحث عنها غير موجودة.',
+    backToHome: 'العودة إلى الرئيسية'
   }
 };

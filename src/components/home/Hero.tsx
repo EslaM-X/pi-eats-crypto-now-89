@@ -53,7 +53,7 @@ const Hero = () => {
             ) : (
               <div className="flex flex-col gap-3 mb-6">
                 <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-orange animate-pulse-slow">
-                  Use Pi to order food
+                  {t('home.welcomeHighlight')}
                 </h2>
                 <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-pi to-orange bg-clip-text text-transparent">
                   {t('home.welcome')}
@@ -86,7 +86,7 @@ const Hero = () => {
             <Button asChild variant="outline" className={`text-lg h-12 px-8 border-pi hover:bg-pi/10 rounded-full ${language === 'ar' ? 'text-sm' : ''}`}>
               <Link to="/homefood" className="flex items-center gap-2">
                 <ChefHat className="h-4 w-4" />
-                HomeFood
+                {t('home.homefood')}
               </Link>
             </Button>
           </motion.div>

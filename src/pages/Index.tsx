@@ -52,25 +52,25 @@ const Index = () => {
   const features = [
     {
       icon: <ShoppingBag className="h-8 w-8 mb-3 text-pi" />,
-      title: language === 'ar' ? t('features.restaurantDelivery') : "Restaurant Delivery",
-      description: language === 'ar' ? t('features.restaurantDesc') : "Order from your favorite local restaurants using Pi cryptocurrency"
+      title: t('features.restaurantDelivery'),
+      description: t('features.restaurantDesc')
     },
     {
       icon: <ChefHat className="h-8 w-8 mb-3 text-orange-500" />,
-      title: language === 'ar' ? t('features.homeCookedFood') : "Home Cooked Food",
-      description: language === 'ar' ? t('features.homeCookedDesc') : "Discover and order authentic home-cooked meals from local chefs"
+      title: t('features.homeCookedFood'),
+      description: t('features.homeCookedDesc')
     },
     {
       icon: <Wallet className="h-8 w-8 mb-3 text-green-500" />,
-      title: language === 'ar' ? t('features.piPayments') : "Pi Payments",
-      description: language === 'ar' ? t('features.piPaymentsDesc') : "Pay seamlessly with Pi cryptocurrency for all your food orders"
+      title: t('features.piPayments'),
+      description: t('features.piPaymentsDesc')
     }
   ];
 
   return (
     <>
       <Helmet>
-        <title>{t('app.title')} | {t('app.subtitle')}</title>
+        <title>{t('app.name')} | {t('home.subtitle')}</title>
         <meta name="description" content={t('home.subtitle')} />
       </Helmet>
       
@@ -134,10 +134,10 @@ const Index = () => {
               className="max-w-3xl mx-auto text-center mb-16"
             >
               <h2 className="text-2xl md:text-3xl font-bold mb-4">
-                {language === 'ar' ? t('home.readyToStart') : 'Ready to Get Started?'}
+                {t('home.readyToStart')}
               </h2>
               <p className={`text-lg text-muted-foreground mb-8 ${language === 'ar' ? 'arabic-text' : ''}`}>
-                {language === 'ar' ? t('home.futureOfDelivery') : 'Explore restaurants or homemade food and pay with Pi cryptocurrency. The future of food delivery is here!'}
+                {t('home.futureOfDelivery')}
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
